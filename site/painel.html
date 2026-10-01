@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agendamentos — Larissa Lima</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles-admin.css">
+</head>
+<body>
+
+<div class="mobile-bar">
+  <div class="logo">Larissa Lima</div>
+</div>
+
+<div class="admin-wrap">
+
+  <p id="admin-checking" class="admin-empty-state" style="padding-top:60px;">Verificando acesso...</p>
+
+  <section id="admin-panel" hidden>
+    <div class="admin-header-bar">
+      <div>
+        <div class="section-label">Painel</div>
+        <h1>Agendamentos</h1>
+        <p id="admin-summary" class="admin-summary"></p>
+      </div>
+      <div class="admin-header-actions">
+        <a href="bloquear-agenda.html" class="btn-ghost btn">Bloquear agenda</a>
+        <a href="index.html" class="btn-ghost btn">&larr; Voltar ao site</a>
+        <button type="button" id="admin-logout" class="btn-ghost btn">Sair</button>
+      </div>
+    </div>
+
+    <div id="admin-bookings"></div>
+    <p id="admin-empty" class="admin-empty-state" hidden>Nenhum agendamento futuro no momento.</p>
+  </section>
+
+</div>
+
+<script src="js/booking-config.js"></script>
+<script src="js/admin-panel.js"></script>
+</body>
+</html>

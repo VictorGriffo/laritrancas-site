@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Larissa Lima — Tranças & Penteados</title>
+<meta name="description" content="Larissa Lima — tranças e penteados em Anchieta e região. Penteados para festas, formaturas, madrinhas e noivas.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Larissa Lima — Tranças & Penteados">
+<meta property="og:description" content="Tranças e penteados em Anchieta e região. Penteados para festas, formaturas, madrinhas e noivas.">
+<meta property="og:image" content="https://penteadosbylari.com.br/og-image.jpg">
+<meta property="og:url" content="https://penteadosbylari.com.br/">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Larissa Lima — Tranças & Penteados">
+<meta name="twitter:description" content="Tranças e penteados em Anchieta e região. Penteados para festas, formaturas, madrinhas e noivas.">
+<meta name="twitter:image" content="https://penteadosbylari.com.br/og-image.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#2b1a1e;
+  --paper:#fdf2f2;
+  --paper-alt:#f8e3e2;
+  --stone:#eccfd0;
+  --mocha:#b1808a;
+  --wine:#c2607c;
+  --wine-dark:#9f4761;
+  --max:1180px;
+  --radius:26px;
+  --radius-arch:45% 45% 20px 20px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:'Work Sans',sans-serif;font-weight:400;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,.logo{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-weight:600;margin:0;letter-spacing:-0.01em;color:var(--ink);
+}
+p{margin:0;}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 28px;}
+:focus-visible{outline:2px solid var(--wine);outline-offset:3px;}
+
+/* ---------- Header ---------- */
+header{position:sticky;top:0;z-index:50;background:rgba(253,242,242,0.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--stone);}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:20px 28px;max-width:var(--max);margin:0 auto;}
+.logo{font-size:1.15rem;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;}
+.nav-links{display:flex;gap:36px;font-size:0.92rem;font-weight:500;}
+.nav-links a{position:relative;padding:4px 0;color:var(--mocha);transition:color .2s ease;}
+.nav-links a:hover{color:var(--ink);}
+.btn-wpp-small{background:var(--ink);color:var(--paper);padding:11px 22px;font-size:0.85rem;font-weight:600;white-space:nowrap;transition:background .2s ease;border-radius:100px;}
+.btn-wpp-small:hover{background:var(--wine);}
+.nav-agenda-link{display:none;}
+.menu-toggle{display:none;background:none;border:none;font-size:1.6rem;color:var(--ink);cursor:pointer;}
+.social-icons{display:flex;align-items:center;gap:10px;}
+.social-icons a{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--stone);color:var(--ink);transition:background .2s ease, border-color .2s ease, color .2s ease;}
+.social-icons a:hover{background:var(--wine);border-color:var(--wine);color:#fff;}
+.social-icons svg{width:18px;height:18px;}
+
+/* ---------- Hero ---------- */
+.hero{display:grid;grid-template-columns:1.15fr 0.85fr;align-items:end;max-width:var(--max);margin:0 auto;padding:64px 28px 0;gap:48px;}
+.hero-text .eyebrow{font-size:0.85rem;color:var(--mocha);font-weight:600;margin-bottom:22px;text-transform:uppercase;letter-spacing:0.08em;}
+.hero-text h1{font-size:clamp(2.4rem, 5vw, 4.2rem);line-height:1.02;margin-bottom:26px;}
+.hero-text p{font-size:1.08rem;color:var(--mocha);max-width:44ch;margin-bottom:34px;}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:56px;}
+.btn-primary{background:var(--wine);color:#fff;padding:16px 30px;font-weight:600;font-size:0.96rem;display:inline-flex;align-items:center;gap:8px;transition:background .2s ease;border-radius:100px;}
+.btn-primary:hover{background:var(--wine-dark);}
+.btn-secondary{border:1.5px solid var(--ink);color:var(--ink);padding:14.5px 28px;font-weight:600;font-size:0.96rem;transition:background .2s ease, color .2s ease;border-radius:100px;}
+.btn-secondary:hover{background:var(--ink);color:var(--paper);}
+.hero-img-wrap{aspect-ratio:3/4.1;overflow:hidden;border-radius:var(--radius-arch);}
+.hero-img-wrap img{width:100%;height:100%;object-fit:cover;}
+
+/* ---------- Section basics ---------- */
+section{padding:100px 0;}
+.section-head{max-width:640px;margin-bottom:56px;}
+.section-head .tag{font-size:0.85rem;color:var(--wine);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;display:block;margin-bottom:14px;}
+.section-head h2{font-size:clamp(1.9rem,3.4vw,2.7rem);margin-bottom:16px;}
+.section-head p{color:var(--mocha);font-size:1.02rem;}
+.section-head.center{margin-left:auto;margin-right:auto;text-align:center;}
+
+/* ---------- Process banner ---------- */
+.process-banner{padding:0;position:relative;}
+.process-banner img{width:100%;height:clamp(280px,38vw,460px);object-fit:cover;object-position:center 38%;}
+.process-caption{
+  position:absolute;left:0;right:0;bottom:0;
+  background:linear-gradient(to top, rgba(43,26,30,0.78), rgba(43,26,30,0.15) 70%, transparent);
+  padding:56px 28px 32px;
+}
+.process-caption p{
+  max-width:var(--max);margin:0 auto;color:#fdf2f2;font-family:'Bricolage Grotesque',sans-serif;
+  font-size:clamp(1.05rem,2.1vw,1.4rem);font-weight:500;font-style:italic;text-align:left;
+}
+
+/* ---------- Services ---------- */
+.service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.service-card{
+  background:var(--paper);border:1px solid var(--stone);border-radius:var(--radius);
+  padding:38px 28px;text-align:center;cursor:pointer;transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.service-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px -20px rgba(43,26,30,0.25);border-color:var(--wine);}
+.service-icon{
+  width:64px;height:64px;margin:0 auto 22px;border-radius:50%;
+  background:var(--paper-alt);display:flex;align-items:center;justify-content:center;color:var(--wine);
+}
+.service-icon svg{width:28px;height:28px;}
+.service-card h3{font-size:1.2rem;margin-bottom:10px;}
+.service-card p{color:var(--mocha);font-size:0.95rem;}
+
+/* ---------- About ---------- */
+.about{background:var(--paper-alt);}
+.about-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:60px;align-items:center;}
+.about-img{position:relative;}
+.about-img img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:var(--radius-arch);}
+.about-card{
+  position:absolute;bottom:-26px;right:-26px;width:130px;
+  background:var(--paper);padding:10px;box-shadow:0 14px 34px -14px rgba(43,26,30,0.35);
+  transform:rotate(4deg);border-radius:14px;
+}
+.about-card img{aspect-ratio:4/3;border-radius:8px;}
+.about-text p{color:var(--mocha);font-size:1.02rem;margin-bottom:18px;}
+.about-text p:last-of-type{margin-bottom:0;}
+.about-text .lead{font-family:'Bricolage Grotesque',sans-serif;font-size:1.4rem;color:var(--ink);font-weight:500;line-height:1.35;margin-bottom:26px;}
+
+/* ---------- Gallery ---------- */
+.portfolio-reset{background:none;border:none;color:var(--wine);font-weight:600;font-size:inherit;font-family:inherit;cursor:pointer;text-decoration:underline;padding:0;margin-left:6px;}
+.filter-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px;}
+.filter-btn{background:none;border:1.5px solid var(--stone);color:var(--mocha);padding:9px 20px;font-size:0.88rem;font-weight:600;border-radius:100px;cursor:pointer;transition:background .2s ease, color .2s ease, border-color .2s ease;font-family:'Work Sans',sans-serif;}
+.filter-btn:hover{border-color:var(--wine);color:var(--wine);}
+.filter-btn.active{background:var(--wine);border-color:var(--wine);color:#fff;}
+.gallery-item.hidden{display:none;}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.gallery-item{aspect-ratio:3/4;overflow:hidden;cursor:zoom-in;position:relative;border-radius:var(--radius);transition:opacity .35s ease, transform .35s ease;}
+.gallery-item.hidden{display:none;}
+@keyframes galleryAppear{
+  from{opacity:0;transform:translateY(16px) scale(.94);}
+  to{opacity:1;transform:translateY(0) scale(1);}
+}
+.gallery-item.appear{animation:galleryAppear .5s cubic-bezier(.22,.9,.32,1) both;}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+.gallery-item:hover img{transform:scale(1.05);}
+.gallery-caption{
+  position:absolute;left:0;right:0;bottom:0;padding:22px 16px 14px;
+  background:linear-gradient(to top, rgba(43,26,30,0.85), transparent);
+  color:#fff;font-size:0.85rem;font-weight:600;
+  transform:translateY(100%);opacity:0;transition:transform .3s ease, opacity .3s ease;
+}
+.gallery-item:hover .gallery-caption{transform:translateY(0);opacity:1;}
+
+/* lightbox */
+.lightbox{position:fixed;inset:0;background:rgba(43,26,30,0.94);display:none;flex-direction:column;align-items:center;justify-content:center;z-index:200;padding:30px;}
+.lightbox.open{display:flex;}
+.lightbox img{max-height:88vh;max-width:90vw;}
+.lightbox-caption{color:#fff;font-size:0.95rem;font-weight:600;margin-top:16px;text-align:center;}
+.lightbox-close{position:absolute;top:26px;right:32px;color:#fff;font-size:2rem;background:none;border:none;cursor:pointer;line-height:1;}
+.lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.12);border:none;color:#fff;width:46px;height:46px;border-radius:50%;font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.lightbox-nav:hover{background:rgba(255,255,255,0.25);}
+.lightbox-inspire{margin-top:18px;background:#25D366;color:#fff;border:none;padding:12px 26px;border-radius:30px;font-weight:600;font-size:0.95rem;cursor:pointer;transition:transform 0.15s ease, background 0.15s ease;}
+.lightbox-inspire:hover{background:#1ebe5a;transform:translateY(-2px);}
+.lightbox-inspire:disabled{opacity:0.7;cursor:wait;}
+.lb-prev{left:20px;}
+.lb-next{right:20px;}
+
+/* ---------- Shopee ---------- */
+.shopee{background:var(--paper-alt);}
+.shopee-card{background:var(--paper);border-radius:var(--radius);padding:44px;display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap;box-shadow:0 20px 40px -30px rgba(43,26,30,0.25);}
+.shopee-text .tag{color:var(--wine);}
+.shopee-text h2{margin:10px 0;font-size:1.6rem;}
+.shopee-text p{color:var(--mocha);max-width:480px;}
+.shopee-card .btn-primary{white-space:nowrap;}
+@media (max-width:640px){
+  .shopee-card{flex-direction:column;align-items:flex-start;padding:30px;}
+}
+
+/* ---------- Cuidados ---------- */
+.cuidados{background:var(--ink);color:var(--paper);}
+.cuidados .section-head .tag{color:#f0b6c4;}
+.cuidados .section-head h2{color:var(--paper);}
+.cuidados .section-head p{color:#d3a3ac;}
+.tips-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-top:1px solid rgba(253,242,242,0.18);}
+.tip{padding:30px 20px 0 0;border-right:1px solid rgba(253,242,242,0.18);}
+.tip:last-child{border-right:none;}
+.tip .num{font-family:'Bricolage Grotesque',sans-serif;font-size:2.4rem;font-weight:600;color:#6b4650;display:block;margin-bottom:16px;}
+.tip p{font-size:0.92rem;color:#e3cdd0;}
+
+/* ---------- Locations ---------- */
+.info-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:60px;}
+.location{padding:22px 0;border-bottom:1px solid var(--stone);}
+.location:first-child{padding-top:0;}
+.location:last-child{border-bottom:none;}
+.location .tag2{font-size:0.78rem;color:var(--wine);font-weight:700;letter-spacing:0.03em;margin-bottom:6px;display:block;text-transform:uppercase;}
+.location h3{font-size:1.1rem;margin-bottom:6px;font-weight:600;}
+.location p{color:var(--mocha);font-size:0.96rem;}
+.hours-card{background:var(--ink);color:var(--paper);padding:36px;}
+.hours-card h3{color:var(--paper);margin-bottom:20px;font-size:1.1rem;}
+.hours-row{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid rgba(253,242,242,0.15);font-size:0.95rem;}
+.hours-row:last-of-type{border-bottom:none;}
+.hours-row span:first-child{color:#d3a3ac;}
+.payments{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap;}
+.payments span{border:1px solid rgba(253,242,242,0.35);padding:7px 14px;font-size:0.8rem;font-weight:600;color:var(--paper);}
+
+/* ---------- CTA band ---------- */
+.cta-band{text-align:center;padding:110px 0;}
+.cta-band h2{font-size:clamp(2rem,4vw,3rem);margin-bottom:20px;}
+.cta-band p{color:var(--mocha);margin-bottom:34px;}
+
+/* ---------- Footer ---------- */
+footer{background:var(--ink);color:#f3e3e3;padding:56px 0 26px;}
+.footer-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px;margin-bottom:40px;}
+.footer-logo{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.2rem;color:#fff;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.03em;}
+.footer-col p, .footer-col a{color:#d3a3ac;font-size:0.92rem;}
+.footer-col a:hover{color:#fff;}
+.footer-col h4{font-size:0.8rem;color:#f3e3e3;margin-bottom:12px;font-weight:700;}
+.footer-col{display:flex;flex-direction:column;gap:8px;min-width:180px;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.12);padding-top:22px;font-size:0.8rem;color:#b1808a;text-align:center;}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px){
+  .hero{grid-template-columns:1fr;align-items:start;}
+  .hero-img-wrap{order:-1;aspect-ratio:4/3.4;}
+  .about-grid{grid-template-columns:1fr;gap:70px 0;}
+  .about-card{width:110px;right:12px;}
+  .gallery-grid{grid-template-columns:repeat(2,1fr);}
+  .service-grid{grid-template-columns:1fr;}
+  .info-grid{grid-template-columns:1fr;gap:40px;}
+  .tips-grid{grid-template-columns:repeat(2,1fr);}
+  .tip{border-right:none;border-bottom:1px solid rgba(253,242,242,0.18);padding-bottom:26px;}
+  .nav-links{position:absolute;top:100%;left:0;right:0;background:var(--paper);flex-direction:column;padding:20px 28px;gap:18px;border-bottom:1px solid var(--stone);display:none;}
+  .nav-links.open{display:flex;}
+  .menu-toggle{display:block;}
+  .nav-agenda-online-btn{display:none;}
+  .nav-agenda-link{display:block;padding-top:6px;color:var(--wine);font-weight:600;}
+}
+@media (max-width: 560px){
+  section{padding:70px 0;}
+  .gallery-grid{gap:8px;}
+  .footer-grid{flex-direction:column;}
+  .tips-grid{grid-template-columns:1fr 1fr;}
+  .social-icons{gap:6px;}
+  .social-icons a{width:32px;height:32px;}
+  .social-icons svg{width:16px;height:16px;}
+  .btn-wpp-small{padding:9px 14px;font-size:0.8rem;}
+}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto;}*{transition:none !important;}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="#top" class="logo">Larissa Lima</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#portfolio">Penteados</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#cuidados">Cuidados</a>
+      <a href="#contato">Contato</a>
+      <a href="agendar.html" target="_blank" rel="noopener" class="nav-agenda-link">Agendar</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div class="social-icons">
+        <a href="https://instagram.com/penteadosbylari" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@penteadosbylari" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.4 2.1 1.8 3.6 4 3.9v2.7c-1.4 0-2.7-.4-4-1.2v6.4a5.4 5.4 0 1 1-4.7-5.4v2.8a2.6 2.6 0 1 0 2 2.6V3h2.7Z"/></svg>
+        </a>
+      </div>
+      <a class="btn-wpp-small" href="https://wa.me/5528999876432?text=Ol%C3%A1%21%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20um%20hor%C3%A1rio%20%F0%9F%98%8A" target="_blank" rel="noopener">Fale no WhatsApp</a>
+      <a class="btn-wpp-small nav-agenda-online-btn" href="agendar.html" target="_blank" rel="noopener" style="background:var(--wine);">Agendar</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">&#9776;</button>
+    </div>
+  </div>
+</header>
+
+<div id="top"></div>
+
+<section class="hero">
+  <div class="hero-text">
+    <p class="eyebrow">Penteadista · Anchieta/ES</p>
+    <h1>O seu momento merece um penteado à altura!</h1>
+    <p>Cada produção é personalizada de acordo com seu cabelo, seu estilo e a ocasião, para entregar um resultado bonito e duradouro.</p>
+    <div class="hero-cta">
+      <a class="btn-primary" href="agendar.html" target="_blank" rel="noopener">Agendar →</a>
+      <a class="btn-secondary" href="#portfolio">Ver penteados</a>
+    </div>
+  </div>
+  <div class="hero-img-wrap">
+    <img src="imgs/site-1.jpeg" alt="Larissa Lima segurando um babyliss e um spray finalizador">
+  </div>
+</section>
+
+<section id="servicos">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">O que eu faço</span>
+      <h2>Serviços</h2>
+    </div>
+    <div class="service-grid">
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-3 2-5 5-5 8a5 5 0 0 0 10 0c0-3-2-6-5-8Z"/><path d="M9 21c1-2 1-4 0-6"/><path d="M15 21c-1-2-1-4 0-6"/><path d="M12 21v-5"/></svg>
+        </div>
+        <h3>Penteados</h3>
+        <p>Presos, semipresos ou soltos — para noivas, madrinhas, formandas e festas em geral, com acabamento que dura a noite toda.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c2 2-1 3 1 5s-1 3 1 5-1 3 1 5-1 3 1 5"/><path d="M8 2c2 2-1 3 1 5s-1 3 1 5-1 3 1 5-1 3 1 5"/></svg>
+        </div>
+        <h3>Tranças</h3>
+        <p>Tranças nagô, boxeadora, embutida, laterais e muito mais - Diferentes estilos para diferentes momentos.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M3 12h3M18 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/><circle cx="12" cy="12" r="3.2"/></svg>
+        </div>
+        <h3>Tererê</h3>
+        <p>O clássico tererê de praia, perfeito para quem ama um visual diferente e divertido.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="portfolio">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">Trabalhos </span>
+      <h2>Alguns penteados</h2>
+      <p id="portfolioDesc">Explore as opções e escolha o penteado que você gostaria de usar como inspiração.</p>
+    </div>
+    <div class="filter-row" id="filterRow">
+      <button class="filter-btn" data-filter="cacheados">Cacheados</button>
+      <button class="filter-btn" data-filter="coque">Coque</button>
+      <button class="filter-btn" data-filter="semipreso">Semi-preso</button>
+      <button class="filter-btn" data-filter="rabodecavalo">Rabo de Cavalo</button>
+      <button class="filter-btn" data-filter="trancas">Tranças</button>
+      <button class="filter-btn" data-filter="terere">Tererê</button>
+      <button class="filter-btn" data-filter="todos">Todos</button>
+    </div>
+    <div class="gallery-grid" id="gallery">
+      <div class="gallery-item hidden" data-category="cacheados"><img src="imgs/site-2.jpeg" alt="Penteado cacheado" loading="lazy"><span class="gallery-caption">Penteado cacheado 1</span></div>
+      <div class="gallery-item hidden" data-category="cacheados"><img src="imgs/site-3.jpeg" alt="Penteado cacheado" loading="lazy"><span class="gallery-caption">Penteado cacheado 2</span></div>
+      <div class="gallery-item hidden" data-category="cacheados"><img src="imgs/site-4.jpeg" alt="Penteado cacheado" loading="lazy"><span class="gallery-caption">Penteado cacheado 3</span></div>
+      <div class="gallery-item hidden" data-category="cacheados"><img src="imgs/site-5.jpeg" alt="Penteado cacheado" loading="lazy"><span class="gallery-caption">Penteado cacheado 4</span></div>
+      <div class="gallery-item hidden" data-category="cacheados"><img src="imgs/site-6.jpeg" alt="Penteado cacheado" loading="lazy"><span class="gallery-caption">Penteado cacheado 5</span></div>
+      <div class="gallery-item hidden" data-category="cacheados"><img src="imgs/site-7.jpeg" alt="Penteado cacheado" loading="lazy"><span class="gallery-caption">Penteado cacheado 6</span></div>
+      <div class="gallery-item hidden" data-category="cacheados"><img src="imgs/site-8.jpeg" alt="Penteado cacheado" loading="lazy"><span class="gallery-caption">Penteado cacheado 7</span></div>
+      <div class="gallery-item hidden" data-category="cacheados"><img src="imgs/site-9.jpeg" alt="Penteado cacheado" loading="lazy"><span class="gallery-caption">Penteado cacheado 8</span></div>
+      <div class="gallery-item hidden" data-category="cacheados"><img src="imgs/site-10.jpeg" alt="Penteado cacheado" loading="lazy"><span class="gallery-caption">Penteado cacheado 9</span></div>
+      <div class="gallery-item hidden" data-category="cacheados"><img src="imgs/site-11.jpeg" alt="Penteado cacheado" loading="lazy"><span class="gallery-caption">Penteado cacheado 10</span></div>
+      <div class="gallery-item hidden" data-category="coque"><img src="imgs/site-12.jpeg" alt="Coque" loading="lazy"><span class="gallery-caption">Coque 1</span></div>
+      <div class="gallery-item hidden" data-category="coque"><img src="imgs/site-13.jpeg" alt="Coque" loading="lazy"><span class="gallery-caption">Coque 2</span></div>
+      <div class="gallery-item hidden" data-category="coque"><img src="imgs/site-14.jpeg" alt="Coque" loading="lazy"><span class="gallery-caption">Coque 3</span></div>
+      <div class="gallery-item hidden" data-category="coque"><img src="imgs/site-15.jpeg" alt="Coque" loading="lazy"><span class="gallery-caption">Coque 4</span></div>
+      <div class="gallery-item hidden" data-category="coque"><img src="imgs/site-16.jpeg" alt="Coque" loading="lazy"><span class="gallery-caption">Coque 5</span></div>
+      <div class="gallery-item hidden" data-category="coque"><img src="imgs/site-17.jpeg" alt="Coque" loading="lazy"><span class="gallery-caption">Coque 6</span></div>
+      <div class="gallery-item hidden" data-category="coque"><img src="imgs/site-18.jpeg" alt="Coque" loading="lazy"><span class="gallery-caption">Coque 7</span></div>
+      <div class="gallery-item hidden" data-category="coque"><img src="imgs/site-19.jpeg" alt="Coque" loading="lazy"><span class="gallery-caption">Coque 8</span></div>
+      <div class="gallery-item hidden" data-category="coque"><img src="imgs/site-20.jpeg" alt="Coque" loading="lazy"><span class="gallery-caption">Coque 9</span></div>
+      <div class="gallery-item hidden" data-category="coque"><img src="imgs/site-21.jpeg" alt="Coque" loading="lazy"><span class="gallery-caption">Coque 10</span></div>
+      <div class="gallery-item hidden" data-category="coque"><img src="imgs/site-22.jpeg" alt="Coque" loading="lazy"><span class="gallery-caption">Coque 11</span></div>
+      <div class="gallery-item hidden" data-category="coque"><img src="imgs/site-23.jpeg" alt="Coque" loading="lazy"><span class="gallery-caption">Coque 12</span></div>
+      <div class="gallery-item hidden" data-category="coque"><img src="imgs/site-24.jpeg" alt="Coque" loading="lazy"><span class="gallery-caption">Coque 13</span></div>
+      <div class="gallery-item hidden" data-category="semipreso"><img src="imgs/site-25.jpeg" alt="Semi-preso" loading="lazy"><span class="gallery-caption">Semi-preso 1</span></div>
+      <div class="gallery-item hidden" data-category="semipreso"><img src="imgs/site-26.jpeg" alt="Semi-preso" loading="lazy"><span class="gallery-caption">Semi-preso 2</span></div>
+      <div class="gallery-item hidden" data-category="semipreso"><img src="imgs/site-27.jpeg" alt="Semi-preso" loading="lazy"><span class="gallery-caption">Semi-preso 3</span></div>
+      <div class="gallery-item hidden" data-category="semipreso"><img src="imgs/site-28.jpeg" alt="Semi-preso" loading="lazy"><span class="gallery-caption">Semi-preso 4</span></div>
+      <div class="gallery-item hidden" data-category="semipreso"><img src="imgs/site-29.jpeg" alt="Semi-preso" loading="lazy"><span class="gallery-caption">Semi-preso 5</span></div>
+      <div class="gallery-item hidden" data-category="semipreso"><img src="imgs/site-30.jpeg" alt="Semi-preso" loading="lazy"><span class="gallery-caption">Semi-preso 6</span></div>
+      <div class="gallery-item hidden" data-category="semipreso"><img src="imgs/site-31.jpeg" alt="Semi-preso" loading="lazy"><span class="gallery-caption">Semi-preso 7</span></div>
+      <div class="gallery-item hidden" data-category="semipreso"><img src="imgs/site-32.jpeg" alt="Semi-preso" loading="lazy"><span class="gallery-caption">Semi-preso 8</span></div>
+      <div class="gallery-item hidden" data-category="semipreso"><img src="imgs/site-33.jpeg" alt="Semi-preso" loading="lazy"><span class="gallery-caption">Semi-preso 9</span></div>
+      <div class="gallery-item hidden" data-category="semipreso"><img src="imgs/site-34.jpeg" alt="Semi-preso" loading="lazy"><span class="gallery-caption">Semi-preso 10</span></div>
+      <div class="gallery-item hidden" data-category="semipreso"><img src="imgs/site-35.jpeg" alt="Semi-preso" loading="lazy"><span class="gallery-caption">Semi-preso 11</span></div>
+      <div class="gallery-item hidden" data-category="semipreso"><img src="imgs/site-36.jpeg" alt="Semi-preso" loading="lazy"><span class="gallery-caption">Semi-preso 12</span></div>
+      <div class="gallery-item hidden" data-category="semipreso"><img src="imgs/site-37.jpeg" alt="Semi-preso" loading="lazy"><span class="gallery-caption">Semi-preso 13</span></div>
+      <div class="gallery-item hidden" data-category="semipreso"><img src="imgs/site-38.jpeg" alt="Semi-preso" loading="lazy"><span class="gallery-caption">Semi-preso 14</span></div>
+      <div class="gallery-item hidden" data-category="semipreso"><img src="imgs/site-39.jpeg" alt="Semi-preso" loading="lazy"><span class="gallery-caption">Semi-preso 15</span></div>
+      <div class="gallery-item hidden" data-category="semipreso"><img src="imgs/site-40.jpeg" alt="Semi-preso" loading="lazy"><span class="gallery-caption">Semi-preso 16</span></div>
+      <div class="gallery-item hidden" data-category="semipreso"><img src="imgs/site-41.jpeg" alt="Semi-preso" loading="lazy"><span class="gallery-caption">Semi-preso 17</span></div>
+      <div class="gallery-item hidden" data-category="semipreso"><img src="imgs/site-42.jpeg" alt="Semi-preso" loading="lazy"><span class="gallery-caption">Semi-preso 18</span></div>
+      <div class="gallery-item hidden" data-category="semipreso"><img src="imgs/site-43.jpeg" alt="Semi-preso" loading="lazy"><span class="gallery-caption">Semi-preso 19</span></div>
+      <div class="gallery-item hidden" data-category="rabodecavalo"><img src="imgs/site-44.jpeg" alt="Rabo de cavalo" loading="lazy"><span class="gallery-caption">Rabo de cavalo 1</span></div>
+      <div class="gallery-item hidden" data-category="rabodecavalo"><img src="imgs/site-45.jpeg" alt="Rabo de cavalo" loading="lazy"><span class="gallery-caption">Rabo de cavalo 2</span></div>
+      <div class="gallery-item hidden" data-category="rabodecavalo"><img src="imgs/site-46.jpeg" alt="Rabo de cavalo" loading="lazy"><span class="gallery-caption">Rabo de cavalo 3</span></div>
+      <div class="gallery-item hidden" data-category="rabodecavalo"><img src="imgs/site-47.jpeg" alt="Rabo de cavalo" loading="lazy"><span class="gallery-caption">Rabo de cavalo 4</span></div>
+      <div class="gallery-item hidden" data-category="rabodecavalo"><img src="imgs/site-48.jpeg" alt="Rabo de cavalo" loading="lazy"><span class="gallery-caption">Rabo de cavalo 5</span></div>
+      <div class="gallery-item hidden" data-category="rabodecavalo"><img src="imgs/site-49.jpeg" alt="Rabo de cavalo" loading="lazy"><span class="gallery-caption">Rabo de cavalo 6</span></div>
+      <div class="gallery-item hidden" data-category="rabodecavalo"><img src="imgs/site-50.jpeg" alt="Rabo de cavalo" loading="lazy"><span class="gallery-caption">Rabo de cavalo 7</span></div>
+      <div class="gallery-item hidden" data-category="trancas"><img src="imgs/site-51.jpeg" alt="Trança" loading="lazy"><span class="gallery-caption">Trança 1</span></div>
+      <div class="gallery-item hidden" data-category="trancas"><img src="imgs/site-52.jpeg" alt="Trança" loading="lazy"><span class="gallery-caption">Trança 2</span></div>
+      <div class="gallery-item hidden" data-category="trancas"><img src="imgs/site-53.jpeg" alt="Trança" loading="lazy"><span class="gallery-caption">Trança 3</span></div>
+      <div class="gallery-item hidden" data-category="trancas"><img src="imgs/site-54.jpeg" alt="Trança" loading="lazy"><span class="gallery-caption">Trança 4</span></div>
+      <div class="gallery-item hidden" data-category="trancas"><img src="imgs/site-55.jpeg" alt="Trança" loading="lazy"><span class="gallery-caption">Trança 5</span></div>
+      <div class="gallery-item hidden" data-category="trancas"><img src="imgs/site-56.jpeg" alt="Trança" loading="lazy"><span class="gallery-caption">Trança 6</span></div>
+      <div class="gallery-item hidden" data-category="trancas"><img src="imgs/site-57.jpeg" alt="Trança" loading="lazy"><span class="gallery-caption">Trança 7</span></div>
+      <div class="gallery-item hidden" data-category="trancas"><img src="imgs/site-58.jpeg" alt="Trança" loading="lazy"><span class="gallery-caption">Trança 8</span></div>
+      <div class="gallery-item hidden" data-category="trancas"><img src="imgs/site-59.jpeg" alt="Trança" loading="lazy"><span class="gallery-caption">Trança 9</span></div>
+      <div class="gallery-item hidden" data-category="trancas"><img src="imgs/site-60.jpeg" alt="Trança" loading="lazy"><span class="gallery-caption">Trança 10</span></div>
+      <div class="gallery-item hidden" data-category="trancas"><img src="imgs/site-61.jpeg" alt="Trança" loading="lazy"><span class="gallery-caption">Trança 11</span></div>
+      <div class="gallery-item hidden" data-category="trancas"><img src="imgs/site-62.jpeg" alt="Trança" loading="lazy"><span class="gallery-caption">Trança 12</span></div>
+      <div class="gallery-item hidden" data-category="trancas"><img src="imgs/site-63.jpeg" alt="Trança" loading="lazy"><span class="gallery-caption">Trança 13</span></div>
+      <div class="gallery-item hidden" data-category="trancas"><img src="imgs/site-64.jpeg" alt="Trança" loading="lazy"><span class="gallery-caption">Trança 14</span></div>
+      <div class="gallery-item hidden" data-category="trancas"><img src="imgs/site-65.jpeg" alt="Trança" loading="lazy"><span class="gallery-caption">Trança 15</span></div>
+      <div class="gallery-item hidden" data-category="trancas"><img src="imgs/site-66.jpeg" alt="Trança" loading="lazy"><span class="gallery-caption">Trança 16</span></div>
+      <div class="gallery-item hidden" data-category="trancas"><img src="imgs/site-67.jpeg" alt="Trança" loading="lazy"><span class="gallery-caption">Trança 17</span></div>
+      <div class="gallery-item hidden" data-category="terere"><img src="imgs/site-68.jpeg" alt="Tererê" loading="lazy"><span class="gallery-caption">Tererê 1</span></div>
+      <div class="gallery-item hidden" data-category="terere"><img src="imgs/site-69.jpeg" alt="Tererê" loading="lazy"><span class="gallery-caption">Tererê 2</span></div>
+      <div class="gallery-item hidden" data-category="terere"><img src="imgs/site-70.jpeg" alt="Tererê" loading="lazy"><span class="gallery-caption">Tererê 3</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="process-banner">
+  <img src="imgs/site-71.jpeg" alt="Mãos segurando secador, babyliss, spray e pente ao redor de Larissa Lima">
+  <div class="process-caption"><p>Do preparo ao acabamento, produtos de qualidade em cada etapa.</p></div>
+</section>
+
+<section class="about" id="sobre">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-img">
+        <img src="imgs/site-72.jpeg" alt="Retrato de Larissa Lima">
+        <div class="about-card">
+          <img src="imgs/site-73.jpeg" alt="Cartão de visita Larissa Lima">
+        </div>
+      </div>
+      <div class="about-text">
+        <p class="lead">Larissa Lima — tranças e penteados em Anchieta e região.</p>
+        <p>Tudo começou com uma paixão por cabelos e se transformou em um propósito. Hoje, através das tranças e dos penteados, tenho a oportunidade de fazer parte de momentos especiais e ajudar cada cliente a se sentir linda e confiante.</p>
+        <p>Seja para um casamento, uma formatura, uma festa ou simplesmente para viver um momento especial, estou aqui para transformar sua ideia em um penteado que combine com você. E se ainda não souber exatamente o que quer, podemos descobrir juntas!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="shopee">
+  <div class="wrap">
+    <div class="shopee-card">
+      <div class="shopee-text">
+        <span class="tag">Vitrine</span>
+        <h2>Encontre acessórios que você precisa</h2>
+        <p>Presilhas, elásticos, laços e outros acessórios selecionados pela Larissa, direto na vitrine da Shopee.</p>
+      </div>
+      <a class="btn-primary" href="https://collshp.com/larissalimac_653?view=storefront" target="_blank" rel="noopener">Ver vitrine na Shopee →</a>
+    </div>
+  </div>
+</section>
+
+<section class="cuidados" id="cuidados">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">Depois do salão</span>
+      <h2>5 cuidados com as tranças</h2>
+      <p>Para garantir durabilidade e manter tudo intacto por mais tempo.</p>
+    </div>
+    <div class="tips-grid">
+      <div class="tip"><span class="num">01</span><p>Lave cuidadosamente, usando somente o shampoo.</p></div>
+      <div class="tip"><span class="num">02</span><p>Passe condicionador somente do meio para as pontas da trança.</p></div>
+      <div class="tip"><span class="num">03</span><p>Nunca passe creme na raiz, para não acumular produto.</p></div>
+      <div class="tip"><span class="num">04</span><p>Evite muito sol e passe protetor no meio das tranças, para não queimar o couro cabeludo.</p></div>
+      <div class="tip"><span class="num">05</span><p>Touca de cetim ajuda bastante na durabilidade das tranças.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="contato">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">Endereços e horários</span>
+      <h2>Onde &amp; quando</h2>
+      <p>Atendimento em Anchieta e região, com dois endereços fixos e opção a domicílio.</p>
+    </div>
+    <div class="info-grid">
+      <div class="info-block">
+        <div class="location">
+          <span class="tag2">Endereço 1</span>
+          <h3>Larissa Lima — Beauty Designer</h3>
+          <p>Av. Atílio Rauta — ao lado da Billa Biju</p>
+        </div>
+        <div class="location">
+          <span class="tag2">Endereço 2</span>
+          <h3>Studio Samantha Damazio</h3>
+          <p>R. Costa Pereira — Centro</p>
+        </div>
+        <div class="location">
+          <span class="tag2">A domicílio</span>
+          <h3>No local do evento</h3>
+          <p>Anchieta e região — consulte disponibilidade.</p>
+        </div>
+      </div>
+      <div class="hours-card">
+        <h3>Horário de atendimento</h3>
+        <div class="hours-row"><span>Agendamentos pelo WhatsApp</span><span>a partir das 13h</span></div>
+        <div class="hours-row"><span>Atendimentos</span><span>A partir de 13:30</span></div>
+        <div class="hours-row"><span>Dias</span><span>Segunda a sábado</span></div>
+        <h3 style="margin-top:28px;">Formas de pagamento</h3>
+        <div class="payments"><span>Débito</span><span>Crédito</span><span>PIX</span><span>Dinheiro</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Vamos marcar o seu penteado?</h2>
+    <p>Consulte a disponibilidade de horários e realize seu agendamento.</p>
+    <a class="btn-primary" href="agendar.html" target="_blank" rel="noopener">Agendar →</a>
+  </div>
+</section>
+
+
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo">Larissa Lima</div>
+        <p>Tranças &amp; penteados<br>Anchieta/ES e região</p>
+      </div>
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <a href="https://wa.me/5528999876432?text=Ol%C3%A1%21%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20um%20hor%C3%A1rio%20%F0%9F%98%8A" target="_blank" rel="noopener">(28) 99987-6432</a>
+        <a href="https://instagram.com/penteadosbylari" target="_blank" rel="noopener">@penteadosbylari</a>
+      </div>
+      <div class="footer-col">
+        <h4>Navegação</h4>
+        <a href="#portfolio">Penteados</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#contato">Contato</a>
+      </div>
+    </div>
+    <div class="footer-bottom">© <span id="year"></span> Larissa Lima — Tranças e Penteados. Todos os direitos reservados.</div>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lbClose" aria-label="Fechar">&times;</button>
+  <button class="lightbox-nav lb-prev" id="lbPrev" aria-label="Anterior">&#8249;</button>
+  <img id="lbImg" src="" alt="">
+  <div class="lightbox-caption" id="lbCaption"></div>
+  <button class="lightbox-inspire" id="lbInspire">Usar como inspiração 💌</button>
+  <button class="lightbox-nav lb-next" id="lbNext" aria-label="Próxima">&#8250;</button>
+</div>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+const menuToggle = document.getElementById('menuToggle');
+const navLinks = document.getElementById('navLinks');
+menuToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+const galleryItems = Array.from(document.querySelectorAll('#gallery .gallery-item'));
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbCaption = document.getElementById('lbCaption');
+let currentList = galleryItems;
+let currentIndex = 0;
+
+function itemData(item){
+  const img = item.querySelector('img');
+  const cap = item.querySelector('.gallery-caption');
+  return { src: img.src, alt: img.alt, caption: cap ? cap.textContent : '', category: item.dataset.category };
+}
+function renderLightbox(){
+  const d = itemData(currentList[currentIndex]);
+  lbImg.src = d.src; lbImg.alt = d.alt; lbCaption.textContent = d.caption;
+}
+function openLightbox(list, i){ currentList = list; currentIndex = i; renderLightbox(); lightbox.classList.add('open'); }
+function closeLightbox(){ lightbox.classList.remove('open'); }
+function showRelative(delta){ currentIndex = (currentIndex + delta + currentList.length) % currentList.length; renderLightbox(); }
+
+function visibleItems(){ return galleryItems.filter(item => !item.classList.contains('hidden')); }
+galleryItems.forEach((item) => {
+  item.addEventListener('click', () => {
+    const list = visibleItems();
+    openLightbox(list, list.indexOf(item));
+  });
+});
+const lbInspire = document.getElementById('lbInspire');
+const WPP_NUMBER = '5528999876432';
+function shareInspiration(){
+  const d = itemData(currentList[currentIndex]);
+  const name = d.caption || 'esse penteado';
+  const text = `Olá! Gostaria de usar a foto "${name}" (da galeria do site) como inspiração para o meu penteado 💇‍♀️`;
+  window.open(`https://wa.me/${WPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
+}
+lbInspire.addEventListener('click', shareInspiration);
+document.getElementById('lbClose').addEventListener('click', closeLightbox);
+document.getElementById('lbPrev').addEventListener('click', () => showRelative(-1));
+document.getElementById('lbNext').addEventListener('click', () => showRelative(1));
+lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', (e) => {
+  if(!lightbox.classList.contains('open')) return;
+  if(e.key === 'Escape') closeLightbox();
+  if(e.key === 'ArrowRight') showRelative(1);
+  if(e.key === 'ArrowLeft') showRelative(-1);
+});
+
+const filterLabels = { todos: 'Todos', cacheados: 'Cacheados', coque: 'Coque', semipreso: 'Semi-preso', rabodecavalo: 'Rabo de Cavalo', trancas: 'Tranças', terere: 'Tererê' };
+const portfolioDesc = document.getElementById('portfolioDesc');
+const defaultDescText = 'Escolha um estilo abaixo para ver os penteados.';
+const filterBtns = Array.from(document.querySelectorAll('.filter-btn'));
+
+function applyFilter(filter){
+  let visibleIndex = 0;
+  galleryItems.forEach(item => {
+    const show = filter === 'todos' || item.dataset.category === filter;
+    item.classList.toggle('hidden', !show);
+    item.classList.remove('appear');
+    if(show){
+      item.style.animationDelay = `${Math.min(visibleIndex, 14) * 45}ms`;
+      // força o navegador a reiniciar a animação mesmo se a classe já tiver sido usada antes
+      void item.offsetWidth;
+      item.classList.add('appear');
+      visibleIndex++;
+    }
+  });
+  filterBtns.forEach(b => b.classList.toggle('active', b.dataset.filter === filter));
+  portfolioDesc.textContent = `Mostrando: ${filterLabels[filter]}.`;
+}
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
+});
+
+
+</script>
+
+</body>
+</html>

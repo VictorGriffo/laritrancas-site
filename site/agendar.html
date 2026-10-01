@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agendar — Larissa Lima</title>
+<meta name="description" content="Agende seu horário com a Larissa Lima — tranças e penteados em Anchieta/ES.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+:root{
+  --ink:#2b1a1e;
+  --paper:#fdf2f2;
+  --paper-alt:#f8e3e2;
+  --stone:#eccfd0;
+  --mocha:#b1808a;
+  --wine:#c2607c;
+  --wine-dark:#9f4761;
+  --max:820px;
+  --radius:26px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:'Work Sans',sans-serif;font-weight:400;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,.logo{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-weight:600;margin:0;letter-spacing:-0.01em;color:var(--ink);
+}
+p{margin:0;}
+a{color:inherit;text-decoration:none;}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px;}
+:focus-visible{outline:2px solid var(--wine);outline-offset:3px;}
+
+/* ---------- Header ---------- */
+header{position:sticky;top:0;z-index:50;background:rgba(253,242,242,0.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--stone);}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:20px 28px;max-width:1180px;margin:0 auto;}
+.logo{font-size:1.15rem;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;}
+.back-link{font-size:0.9rem;font-weight:600;color:var(--mocha);display:inline-flex;align-items:center;gap:6px;transition:color .2s ease;}
+.back-link:hover{color:var(--wine);}
+
+/* ---------- Intro ---------- */
+.intro{padding:56px 0 12px;text-align:center;}
+.intro .eyebrow{font-size:0.85rem;color:var(--mocha);font-weight:600;margin-bottom:14px;text-transform:uppercase;letter-spacing:0.08em;}
+.intro h1{font-size:clamp(1.9rem, 4vw, 2.6rem);margin-bottom:14px;}
+.intro p{color:var(--mocha);font-size:1.02rem;max-width:52ch;margin:0 auto;}
+
+/* ---------- Steps ---------- */
+.step{padding:36px 0;}
+.step-head{display:flex;align-items:center;gap:12px;margin-bottom:22px;}
+.step-num{width:32px;height:32px;border-radius:50%;background:var(--wine);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;flex-shrink:0;}
+.step-head h2{font-size:1.25rem;}
+
+/* Card genérico usado pra agenda + formulário */
+.card{background:#fff;border:1px solid var(--stone);border-radius:var(--radius);padding:28px;}
+
+/* ---------- Agenda (calendário + horários) ---------- */
+.ag-layout{display:grid;grid-template-columns:1fr;gap:28px;}
+@media(min-width:640px){.ag-layout{grid-template-columns:minmax(0,320px) 1fr;align-items:start;}}
+.ag-col-label{display:block;font-size:0.9rem;font-weight:600;margin-bottom:8px;}
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.cal-month-label{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;color:var(--ink);font-size:1.05rem;}
+.cal-nav{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--paper-alt);border:1px solid var(--stone);color:var(--ink);font-size:1.1rem;line-height:1;cursor:pointer;transition:border-color .2s ease;}
+.cal-nav:hover:not(:disabled){border-color:var(--wine);}
+.cal-nav:disabled{opacity:0.3;cursor:not-allowed;}
+.cal-weekdays{display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:6px;}
+.cal-weekdays span{text-align:center;font-size:0.75rem;color:var(--mocha);font-weight:600;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.cal-empty{visibility:hidden;}
+.cal-day{aspect-ratio:1;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--paper-alt);border:1.5px solid transparent;color:var(--ink);font-family:inherit;font-size:0.9rem;cursor:pointer;transition:border-color .2s ease, background .2s ease, color .2s ease;}
+.cal-day:hover:not(:disabled){border-color:var(--wine);}
+.cal-day:disabled{color:var(--mocha);opacity:0.35;cursor:not-allowed;background:transparent;}
+.cal-day.selected{background:var(--wine);color:#fff;}
+.ag-slots-box{background:var(--paper-alt);border:1px solid var(--stone);border-radius:18px;padding:20px;min-height:100%;}
+.ag-slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:10px;}
+.ag-slots .hint{grid-column:1/-1;}
+.slot-btn{padding:12px 10px;border-radius:12px;background:#fff;border:1.5px solid var(--stone);color:var(--ink);font-family:inherit;font-size:0.9rem;cursor:pointer;transition:border-color .2s ease, background .2s ease, color .2s ease;}
+.slot-btn:hover:not(:disabled){border-color:var(--wine);}
+.slot-btn.selected{background:var(--wine);color:#fff;border-color:var(--wine);}
+.slot-btn.slot-taken{opacity:0.4;text-decoration:line-through;cursor:not-allowed;}
+.ag-status{font-size:0.85rem;margin-top:18px;color:var(--mocha);}
+.ag-status.ag-error{color:#c62828;}
+.ag-status.ag-demo{font-style:italic;}
+
+/* ---------- Formulário ---------- */
+.field{margin-bottom:20px;}
+.field label{display:block;font-size:0.9rem;font-weight:600;margin-bottom:8px;}
+.field .hint{font-weight:400;color:var(--mocha);font-size:0.82rem;}
+.field input[type="text"],
+.field input[type="date"],
+.field input[type="time"],
+.field input[type="tel"],
+.field select,
+.field textarea{
+  width:100%;padding:13px 16px;border:1.5px solid var(--stone);border-radius:14px;
+  font-family:inherit;font-size:0.95rem;color:var(--ink);background:var(--paper);
+  transition:border-color .2s ease;
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--wine);}
+.field input[readonly]{background:var(--paper-alt);color:var(--mocha);cursor:not-allowed;}
+.field textarea{resize:vertical;min-height:100px;}
+.upload-box{border:1.5px dashed var(--stone);border-radius:14px;padding:20px;text-align:center;cursor:pointer;transition:border-color .2s ease, background .2s ease;background:var(--paper);}
+.upload-box:hover{border-color:var(--wine);background:var(--paper-alt);}
+.upload-box input{display:none;}
+.upload-box .upload-label{font-size:0.9rem;color:var(--mocha);}
+.foto-picker{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px;}
+.foto-picker-item{position:relative;aspect-ratio:3/4;border-radius:10px;overflow:hidden;cursor:pointer;border:2.5px solid transparent;transition:border-color .15s ease;}
+.foto-picker-item img{width:100%;height:100%;object-fit:cover;display:block;}
+.foto-picker-item.selected{border-color:var(--wine);}
+.foto-picker-item.selected::after{content:"✓";position:absolute;top:4px;right:4px;background:var(--wine);color:#fff;width:18px;height:18px;border-radius:50%;font-size:0.7rem;display:flex;align-items:center;justify-content:center;}
+.upload-preview{margin-top:12px;display:none;}
+.upload-preview img{max-width:100%;max-height:180px;border-radius:12px;display:block;margin:0 auto;}
+.upload-remove{margin-top:8px;font-size:0.82rem;color:var(--wine);text-decoration:underline;cursor:pointer;background:none;border:none;padding:0;font-family:inherit;}
+
+/* ---------- Botões ---------- */
+.btn-primary{background:var(--wine);color:#fff;padding:16px 30px;font-weight:600;font-size:0.96rem;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:background .2s ease;border-radius:100px;border:none;cursor:pointer;width:100%;}
+.btn-primary:hover{background:var(--wine-dark);}
+.btn-primary:disabled{opacity:0.6;cursor:wait;}
+.btn-secondary{border:1.5px solid var(--stone);color:var(--ink);background:var(--paper);padding:14px 26px;font-weight:600;font-size:0.92rem;border-radius:100px;cursor:pointer;transition:background .2s ease, border-color .2s ease;}
+.btn-secondary:hover{background:var(--paper-alt);border-color:var(--wine);}
+.btn-secondary.btn-active{background:var(--wine);color:#fff;border-color:var(--wine);}
+.btn-wpp{background:#25D366;color:#fff;padding:14px 26px;font-weight:600;font-size:0.92rem;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:background .2s ease;border-radius:100px;width:100%;margin-top:12px;}
+.btn-wpp:hover{background:#1ebe5a;}
+
+/* ---------- Feedback ---------- */
+.form-msg{margin-top:16px;padding:14px 18px;border-radius:14px;font-size:0.9rem;display:none;}
+.form-msg.success{display:block;background:#e8f5e9;color:#2e7d32;}
+.form-msg.error{display:block;background:#fdecea;color:#c62828;}
+
+/* ---------- Footer ---------- */
+footer{background:var(--ink);color:#f3e3e3;padding:40px 0;text-align:center;margin-top:20px;}
+footer p{color:#d3a3ac;font-size:0.85rem;}
+
+@media (max-width:640px){
+  .intro{padding:40px 0 8px;}
+  .card{padding:22px;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="/" class="logo">Larissa Lima</a>
+    <a href="/" class="back-link">&larr; Voltar ao site</a>
+  </div>
+</header>
+
+<section class="intro">
+  <div class="wrap">
+    <p class="eyebrow">Penteadista · Anchieta/ES</p>
+    <h1>Agende seu horário</h1>
+    <p>Escolha o melhor dia e horário e conte pra Larissa qual penteado você tem em mente.</p>
+  </div>
+</section>
+
+<section class="step">
+  <div class="wrap">
+    <div class="step-head">
+      <div class="step-num">1</div>
+      <h2>Escolha um horário</h2>
+    </div>
+    <div class="card">
+      <p class="hint" style="margin-bottom:20px;">Marque aqui sua preferência de data e horário que logo entro em contato com você para confirmar 😊</p>
+      <div class="ag-layout">
+        <div>
+          <label class="ag-col-label">Dia</label>
+          <div id="agDates">
+            <p class="hint">Carregando dias disponíveis...</p>
+          </div>
+          <input type="hidden" id="agDate">
+        </div>
+        <div>
+          <label class="ag-col-label">Horário</label>
+          <div class="ag-slots-box">
+            <div id="agSlots" class="ag-slots">
+              <p class="hint">Escolha um dia para ver os horários disponíveis.</p>
+            </div>
+          </div>
+          <input type="hidden" id="agSlotValue">
+        </div>
+      </div>
+      <p class="ag-status" id="agStatus"></p>
+    </div>
+  </div>
+</section>
+
+<section class="step">
+  <div class="wrap">
+    <div class="step-head">
+      <div class="step-num">2</div>
+      <h2>Conte como você imagina o penteado</h2>
+    </div>
+    <div class="card">
+      <form id="agendaForm">
+        <div class="field">
+          <label for="nome">Seu nome</label>
+          <input type="text" id="nome" name="nome" required>
+        </div>
+        <div class="field">
+          <label for="resumoDataHorario">Data e horário escolhidos na agenda acima</label>
+          <input type="text" id="resumoDataHorario" readonly placeholder="Escolha o dia e o horário no passo 1">
+        </div>
+        <div class="field">
+          <label for="tipoPenteado">Tipo de penteado</label>
+          <select id="tipoPenteado" name="tipoPenteado" required>
+            <option value="" disabled selected>Escolha uma opção</option>
+            <option value="Cacheados">Cacheados</option>
+            <option value="Coque">Coque</option>
+            <option value="Semi-preso">Semi-preso</option>
+            <option value="Rabo de Cavalo">Rabo de Cavalo</option>
+            <option value="Tranças">Tranças</option>
+            <option value="Tererê">Tererê</option>
+            <option value="Outras">Outras</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Foto de inspiração <span class="hint">(opcional)</span></label>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button type="button" class="btn-secondary" id="mostrarFotosBtn" style="flex:1;min-width:200px;">Quero escolher uma foto de inspiração 💌</button>
+            <button type="button" class="btn-secondary" id="semInspiracaoBtn" style="flex:1;min-width:160px;">Não tenho inspiração 🙅‍♀️</button>
+          </div>
+          <p class="hint" id="fotoHint" style="margin-top:10px;display:none;">Escolha o tipo de penteado acima para ver fotos da galeria.</p>
+          <div class="foto-picker" id="fotoPicker" style="margin-top:10px;"></div>
+          <p class="hint" style="margin-top:10px;">Se você já tem uma foto de referência própria (que não é da nossa galeria), pode mandar ela anexada direto na conversa do WhatsApp, depois de enviar o formulário.</p>
+        </div>
+        <div class="field">
+          <label for="observacoes">Observações <span class="hint">(opcional)</span></label>
+          <textarea id="observacoes" name="observacoes" placeholder="Conte detalhes, ocasião, referências, etc."></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary" id="submitBtn">Enviar pedido de agendamento</button>
+        <div class="form-msg" id="formMsg"></div>
+      </form>
+
+      <a class="btn-wpp" id="wppConfirmBtn" href="#" target="_blank" rel="noopener" style="display:none;">Avisar a Larissa no WhatsApp também</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>© <span id="year"></span> Larissa Lima — Tranças e Penteados.</p>
+  </div>
+</footer>
+
+<script src="js/booking-config.js"></script>
+<script src="js/booking-backend.js"></script>
+<script>
+const GALLERY_PHOTOS = {cacheados:[{c:"Penteado cacheado 1",t:"imgs/agenda-picker-1.jpeg"},{c:"Penteado cacheado 2",t:"imgs/agenda-picker-2.jpeg"},{c:"Penteado cacheado 3",t:"imgs/agenda-picker-3.jpeg"},{c:"Penteado cacheado 4",t:"imgs/agenda-picker-4.jpeg"},{c:"Penteado cacheado 5",t:"imgs/agenda-picker-5.jpeg"},{c:"Penteado cacheado 6",t:"imgs/agenda-picker-6.jpeg"},{c:"Penteado cacheado 7",t:"imgs/agenda-picker-7.jpeg"},{c:"Penteado cacheado 8",t:"imgs/agenda-picker-8.jpeg"},{c:"Penteado cacheado 9",t:"imgs/agenda-picker-9.jpeg"},{c:"Penteado cacheado 10",t:"imgs/agenda-picker-10.jpeg"}],
+coque:[{c:"Coque 1",t:"imgs/agenda-picker-11.jpeg"},{c:"Coque 2",t:"imgs/agenda-picker-12.jpeg"},{c:"Coque 3",t:"imgs/agenda-picker-13.jpeg"},{c:"Coque 4",t:"imgs/agenda-picker-14.jpeg"},{c:"Coque 5",t:"imgs/agenda-picker-15.jpeg"},{c:"Coque 6",t:"imgs/agenda-picker-16.jpeg"},{c:"Coque 7",t:"imgs/agenda-picker-17.jpeg"},{c:"Coque 8",t:"imgs/agenda-picker-18.jpeg"},{c:"Coque 9",t:"imgs/agenda-picker-19.jpeg"},{c:"Coque 10",t:"imgs/agenda-picker-20.jpeg"},{c:"Coque 11",t:"imgs/agenda-picker-21.jpeg"},{c:"Coque 12",t:"imgs/agenda-picker-22.jpeg"},{c:"Coque 13",t:"imgs/agenda-picker-23.jpeg"}],
+semipreso:[{c:"Semi-preso 1",t:"imgs/agenda-picker-24.jpeg"},{c:"Semi-preso 2",t:"imgs/agenda-picker-25.jpeg"},{c:"Semi-preso 3",t:"imgs/agenda-picker-26.jpeg"},{c:"Semi-preso 4",t:"imgs/agenda-picker-27.jpeg"},{c:"Semi-preso 5",t:"imgs/agenda-picker-28.jpeg"},{c:"Semi-preso 6",t:"imgs/agenda-picker-29.jpeg"},{c:"Semi-preso 7",t:"imgs/agenda-picker-30.jpeg"},{c:"Semi-preso 8",t:"imgs/agenda-picker-31.jpeg"},{c:"Semi-preso 9",t:"imgs/agenda-picker-32.jpeg"},{c:"Semi-preso 10",t:"imgs/agenda-picker-33.jpeg"},{c:"Semi-preso 11",t:"imgs/agenda-picker-34.jpeg"},{c:"Semi-preso 12",t:"imgs/agenda-picker-35.jpeg"},{c:"Semi-preso 13",t:"imgs/agenda-picker-36.jpeg"},{c:"Semi-preso 14",t:"imgs/agenda-picker-37.jpeg"},{c:"Semi-preso 15",t:"imgs/agenda-picker-38.jpeg"},{c:"Semi-preso 16",t:"imgs/agenda-picker-39.jpeg"},{c:"Semi-preso 17",t:"imgs/agenda-picker-40.jpeg"},{c:"Semi-preso 18",t:"imgs/agenda-picker-41.jpeg"},{c:"Semi-preso 19",t:"imgs/agenda-picker-42.jpeg"}],
+rabodecavalo:[{c:"Rabo de cavalo 1",t:"imgs/agenda-picker-43.jpeg"},{c:"Rabo de cavalo 2",t:"imgs/agenda-picker-44.jpeg"},{c:"Rabo de cavalo 3",t:"imgs/agenda-picker-45.jpeg"},{c:"Rabo de cavalo 4",t:"imgs/agenda-picker-46.jpeg"},{c:"Rabo de cavalo 5",t:"imgs/agenda-picker-47.jpeg"},{c:"Rabo de cavalo 6",t:"imgs/agenda-picker-48.jpeg"},{c:"Rabo de cavalo 7",t:"imgs/agenda-picker-49.jpeg"}],
+trancas:[{c:"Trança 1",t:"imgs/agenda-picker-50.jpeg"},{c:"Trança 2",t:"imgs/agenda-picker-51.jpeg"},{c:"Trança 3",t:"imgs/agenda-picker-52.jpeg"},{c:"Trança 4",t:"imgs/agenda-picker-53.jpeg"},{c:"Trança 5",t:"imgs/agenda-picker-54.jpeg"},{c:"Trança 6",t:"imgs/agenda-picker-55.jpeg"},{c:"Trança 7",t:"imgs/agenda-picker-56.jpeg"},{c:"Trança 8",t:"imgs/agenda-picker-57.jpeg"},{c:"Trança 9",t:"imgs/agenda-picker-58.jpeg"},{c:"Trança 10",t:"imgs/agenda-picker-59.jpeg"},{c:"Trança 11",t:"imgs/agenda-picker-60.jpeg"},{c:"Trança 12",t:"imgs/agenda-picker-61.jpeg"},{c:"Trança 13",t:"imgs/agenda-picker-62.jpeg"},{c:"Trança 14",t:"imgs/agenda-picker-63.jpeg"},{c:"Trança 15",t:"imgs/agenda-picker-64.jpeg"},{c:"Trança 16",t:"imgs/agenda-picker-65.jpeg"},{c:"Trança 17",t:"imgs/agenda-picker-66.jpeg"}],
+terere:[{c:"Tererê 1",t:"imgs/agenda-picker-67.jpeg"},{c:"Tererê 2",t:"imgs/agenda-picker-68.jpeg"},{c:"Tererê 3",t:"imgs/agenda-picker-69.jpeg"}]};
+document.getElementById('year').textContent = new Date().getFullYear();
+
+const WPP_NUMBER = '5528999876432';
+
+// ---------- Seletor de foto de inspiração (fotos da galeria do site) ----------
+const fotoPicker = document.getElementById('fotoPicker');
+const fotoHint = document.getElementById('fotoHint');
+let fotoEscolhida = ''; // legenda da foto escolhida, ex: "Coque 3"
+
+const CATEGORIA_PARA_CHAVE = {
+  'Cacheados': 'cacheados',
+  'Coque': 'coque',
+  'Semi-preso': 'semipreso',
+  'Rabo de Cavalo': 'rabodecavalo',
+  'Tranças': 'trancas',
+  'Tererê': 'terere'
+};
+
+function popularFotoPicker(categoriaLabel){
+  const chave = CATEGORIA_PARA_CHAVE[categoriaLabel];
+  const fotos = (typeof GALLERY_PHOTOS !== 'undefined' && chave) ? GALLERY_PHOTOS[chave] : null;
+  fotoEscolhida = '';
+  fotoPicker.innerHTML = '';
+  fotoHint.style.display = 'block';
+  if(!categoriaLabel){
+    fotoHint.textContent = 'Escolha o tipo de penteado acima primeiro.';
+    return;
+  }
+  if(!fotos || !fotos.length){
+    fotoHint.textContent = 'Nenhuma foto encontrada pra essa categoria ainda.';
+    return;
+  }
+  fotoHint.textContent = 'Toque numa foto se quiser usar como inspiração (opcional).';
+  fotos.forEach((foto) => {
+    const item = document.createElement('div');
+    item.className = 'foto-picker-item';
+    item.dataset.caption = foto.c;
+    const img = document.createElement('img');
+    img.src = foto.t;
+    img.alt = foto.c;
+    img.loading = 'lazy';
+    item.appendChild(img);
+    item.addEventListener('click', () => {
+      const jaSelecionada = item.classList.contains('selected');
+      fotoPicker.querySelectorAll('.foto-picker-item.selected').forEach(el => el.classList.remove('selected'));
+      if(jaSelecionada){
+        fotoEscolhida = '';
+      }else{
+        item.classList.add('selected');
+        fotoEscolhida = foto.c;
+      }
+    });
+    fotoPicker.appendChild(item);
+  });
+}
+
+const mostrarFotosBtn = document.getElementById('mostrarFotosBtn');
+const semInspiracaoBtn = document.getElementById('semInspiracaoBtn');
+let modoFoto = ''; // '' | 'escolhendo' | 'sem-inspiracao'
+
+mostrarFotosBtn.addEventListener('click', () => {
+  modoFoto = 'escolhendo';
+  mostrarFotosBtn.classList.add('btn-active');
+  semInspiracaoBtn.classList.remove('btn-active');
+  popularFotoPicker(document.getElementById('tipoPenteado').value);
+});
+
+semInspiracaoBtn.addEventListener('click', () => {
+  modoFoto = 'sem-inspiracao';
+  semInspiracaoBtn.classList.add('btn-active');
+  mostrarFotosBtn.classList.remove('btn-active');
+  fotoEscolhida = '';
+  fotoPicker.innerHTML = '';
+  fotoHint.style.display = 'block';
+  fotoHint.textContent = 'Sem problema, sem foto de inspiração dessa vez 🙂';
+});
+
+// Se a cliente trocar o tipo de penteado enquanto está no modo "escolhendo foto", atualiza a lista
+document.getElementById('tipoPenteado').addEventListener('change', (e) => {
+  if(modoFoto === 'escolhendo'){
+    popularFotoPicker(e.target.value);
+  }
+});
+
+
+// ---------- Envio do formulário ----------
+// Configuração do EmailJS: preencher quando as chaves estiverem disponíveis.
+// Deixe os três campos abaixo vazios ('') até termos Service ID, Template ID e Public Key.
+const EMAILJS_CONFIG = {
+  serviceId: 'service_ir1x7vc',
+  templateId: 'template_etxcugc',
+  publicKey: 'lc-IGoTRTPdSqvk0E'
+};
+if(typeof emailjs !== 'undefined' && EMAILJS_CONFIG.publicKey){
+  emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
+}
+
+const form = document.getElementById('agendaForm');
+const submitBtn = document.getElementById('submitBtn');
+const formMsg = document.getElementById('formMsg');
+const wppConfirmBtn = document.getElementById('wppConfirmBtn');
+
+// ---------- Agenda (calendário + horários reais, via Firebase ou modo demonstração) ----------
+const SCHEDULE = window.BOOKING_CONFIG.SCHEDULE;
+const buildTimeList = window.BOOKING_CONFIG.buildTimeList;
+const fetchTakenSlots = window.BOOKING_BACKEND.fetchTakenSlots;
+const reserveSlot = window.BOOKING_BACKEND.reserveSlot;
+const isDemoMode = window.BOOKING_BACKEND.isDemoMode;
+
+const datesWrap = document.getElementById('agDates');
+const dateInput = document.getElementById('agDate');
+const slotsWrap = document.getElementById('agSlots');
+const slotInput = document.getElementById('agSlotValue');
+const agStatus = document.getElementById('agStatus');
+const resumoDataHorario = document.getElementById('resumoDataHorario');
+let selectedDateLabel = '';
+
+function pad2(n){ return n < 10 ? '0' + n : '' + n; }
+function toDateStr(d){ return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()); }
+function weekdayLabel(d){ return ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'][d.getDay()]; }
+
+const MONTH_NAMES = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const WEEKDAY_SHORT = ['D','S','T','Q','Q','S','S'];
+
+const today = new Date();
+today.setHours(0,0,0,0);
+const maxDate = new Date(today);
+maxDate.setDate(maxDate.getDate() + SCHEDULE.daysAhead - 1);
+
+let viewYear = today.getFullYear();
+let viewMonth = today.getMonth();
+
+function isSelectable(d){
+  return d >= today && d <= maxDate && SCHEDULE.workDays.indexOf(d.getDay()) !== -1;
+}
+
+function clearAgStatus(){
+  agStatus.textContent = '';
+  agStatus.className = 'ag-status';
+}
+
+function renderCalendar(){
+  const firstOfMonth = new Date(viewYear, viewMonth, 1);
+  const startWeekday = firstOfMonth.getDay();
+  const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+
+  const todayMonthFirst = new Date(today.getFullYear(), today.getMonth(), 1);
+  const canGoPrev = firstOfMonth > todayMonthFirst;
+
+  const nextMonthFirst = new Date(viewYear, viewMonth + 1, 1);
+  const canGoNext = nextMonthFirst <= maxDate;
+
+  let html = '<div class="cal-header">'
+    + '<button type="button" class="cal-nav" data-dir="-1"' + (canGoPrev ? '' : ' disabled') + ' aria-label="Mês anterior">‹</button>'
+    + '<span class="cal-month-label">' + MONTH_NAMES[viewMonth] + ' ' + viewYear + '</span>'
+    + '<button type="button" class="cal-nav" data-dir="1"' + (canGoNext ? '' : ' disabled') + ' aria-label="Próximo mês">›</button>'
+    + '</div>';
+
+  html += '<div class="cal-weekdays">';
+  WEEKDAY_SHORT.forEach((w) => { html += '<span>' + w + '</span>'; });
+  html += '</div>';
+
+  html += '<div class="cal-grid">';
+  for(let i = 0; i < startWeekday; i++) html += '<span class="cal-empty"></span>';
+  for(let day = 1; day <= daysInMonth; day++){
+    const d = new Date(viewYear, viewMonth, day);
+    const dateStr = toDateStr(d);
+    const selectable = isSelectable(d);
+    const isSelected = dateInput.value === dateStr;
+    html += '<button type="button" class="cal-day' + (isSelected ? ' selected' : '') + '" data-date="' + dateStr + '" aria-pressed="' + isSelected + '"' + (selectable ? '' : ' disabled') + '>' + day + '</button>';
+  }
+  html += '</div>';
+
+  datesWrap.innerHTML = html;
+
+  datesWrap.querySelectorAll('.cal-nav:not([disabled])').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const dir = parseInt(btn.dataset.dir, 10);
+      viewMonth += dir;
+      if(viewMonth < 0){ viewMonth = 11; viewYear--; }
+      if(viewMonth > 11){ viewMonth = 0; viewYear++; }
+      renderCalendar();
+    });
+  });
+
+  datesWrap.querySelectorAll('.cal-day:not([disabled])').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const dateStr = btn.dataset.date;
+      const d = new Date(dateStr + 'T00:00:00');
+      dateInput.value = dateStr;
+      selectedDateLabel = weekdayLabel(d) + ' ' + pad2(d.getDate()) + '/' + pad2(d.getMonth() + 1);
+      slotInput.value = '';
+      resumoDataHorario.value = '';
+      clearAgStatus();
+      renderCalendar();
+      renderSlots(dateStr);
+    });
+  });
+}
+
+async function renderSlots(dateStr){
+  slotInput.value = '';
+  resumoDataHorario.value = '';
+  if(!dateStr){
+    slotsWrap.innerHTML = '';
+    return;
+  }
+  slotsWrap.innerHTML = '<p class="hint">Carregando horários...</p>';
+
+  const d = new Date(dateStr + 'T00:00:00');
+  const times = buildTimeList(d.getDay());
+  if(!times.length){
+    slotsWrap.innerHTML = '<p class="hint">Sem atendimento nesse dia. Escolha outro.</p>';
+    return;
+  }
+
+  let taken = [];
+  try{
+    taken = await fetchTakenSlots(dateStr);
+  }catch(e){
+    slotsWrap.innerHTML = '<p class="hint">Não foi possível carregar os horários agora.</p>';
+    return;
+  }
+
+  if(taken.indexOf('ALLDAY') !== -1){
+    slotsWrap.innerHTML = '<p class="hint">Sem atendimento nesse dia. Escolha outro.</p>';
+    return;
+  }
+
+  const now = new Date();
+  const isToday = dateStr === toDateStr(now);
+
+  slotsWrap.innerHTML = '';
+  times.forEach((time) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'slot-btn';
+    btn.textContent = time;
+    btn.setAttribute('aria-pressed', 'false');
+
+    let isPast = false;
+    if(isToday){
+      const hourNum = parseInt(time.split(':')[0], 10);
+      if(hourNum <= now.getHours()) isPast = true;
+    }
+
+    if(taken.indexOf(time) !== -1 || isPast){
+      btn.disabled = true;
+      btn.classList.add('slot-taken');
+    }else{
+      btn.addEventListener('click', () => {
+        slotsWrap.querySelectorAll('.slot-btn').forEach((b) => {
+          b.classList.remove('selected');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        btn.classList.add('selected');
+        btn.setAttribute('aria-pressed', 'true');
+        slotInput.value = time;
+        resumoDataHorario.value = selectedDateLabel + ' às ' + time;
+        clearAgStatus();
+      });
+    }
+    slotsWrap.appendChild(btn);
+  });
+}
+
+renderCalendar();
+
+if(isDemoMode()){
+  agStatus.textContent = 'Agenda em modo de demonstração: os horários reservados aqui ficam salvos só neste navegador, até o Firebase ser configurado.';
+  agStatus.className = 'ag-status ag-demo';
+}
+
+function buildWppText(data){
+  let text = `Olá! Gostaria de agendar um horário 😊\nData e horário: ${data.dataHorario}\nNome: ${data.nome}\nTipo de penteado: ${data.tipoPenteado}`;
+  if(data.observacoes){
+    text += `\nObservações: ${data.observacoes}`;
+  }
+  if(data.fotoReferencia){
+    text += `\nFoto de inspiração: ${data.fotoReferencia}`;
+  }
+  return text;
+}
+
+function showMsg(type, text){
+  formMsg.className = 'form-msg ' + type;
+  formMsg.textContent = text;
+}
+
+function resetAgenda(){
+  dateInput.value = '';
+  slotInput.value = '';
+  selectedDateLabel = '';
+  resumoDataHorario.value = '';
+  renderCalendar();
+  slotsWrap.innerHTML = '<p class="hint">Escolha um dia para ver os horários disponíveis.</p>';
+  clearAgStatus();
+  if(isDemoMode()){
+    agStatus.textContent = 'Agenda em modo de demonstração: os horários reservados aqui ficam salvos só neste navegador, até o Firebase ser configurado.';
+    agStatus.className = 'ag-status ag-demo';
+  }
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const dateStr = dateInput.value;
+  const time = slotInput.value;
+
+  if(!dateStr || !time){
+    agStatus.textContent = 'Escolha um dia e um horário disponível no passo 1 antes de enviar.';
+    agStatus.className = 'ag-status ag-error';
+    window.scrollTo({ top: datesWrap.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth' });
+    return;
+  }
+
+  const data = {
+    nome: document.getElementById('nome').value.trim(),
+    dataHorario: selectedDateLabel + ' às ' + time,
+    tipoPenteado: document.getElementById('tipoPenteado').value,
+    observacoes: document.getElementById('observacoes').value.trim(),
+    fotoReferencia: fotoEscolhida
+  };
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Reservando horário...';
+
+  const reserva = await reserveSlot(dateStr, time, {
+    nome: data.nome,
+    tipoPenteado: data.tipoPenteado,
+    observacoes: data.observacoes,
+    fotoReferencia: data.fotoReferencia
+  });
+
+  if(!reserva.ok){
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Enviar pedido de agendamento';
+    if(reserva.reason === 'taken'){
+      showMsg('error', 'Esse horário acabou de ser reservado por outra pessoa. Escolha outro, por favor.');
+      renderSlots(dateStr);
+    }else{
+      showMsg('error', 'Não consegui reservar o horário agora. Tenta de novo ou fala direto pelo WhatsApp:');
+      wppConfirmBtn.style.display = 'inline-flex';
+    }
+    return;
+  }
+
+  const wppText = buildWppText(data);
+  const wppUrl = `https://wa.me/${WPP_NUMBER}?text=${encodeURIComponent(wppText)}`;
+  wppConfirmBtn.href = wppUrl;
+
+  // Abre o WhatsApp clicando de verdade no link (igual o botão "Usar como inspiração" do site principal),
+  // pra funcionar de forma confiável mesmo em navegadores que bloqueiam abertura de aba via script.
+  wppConfirmBtn.click();
+
+  const emailjsReady = EMAILJS_CONFIG.serviceId && EMAILJS_CONFIG.templateId && EMAILJS_CONFIG.publicKey;
+
+  function resetFormState(){
+    form.reset();
+    fotoPicker.innerHTML = '';
+    fotoEscolhida = '';
+    fotoHint.style.display = 'none';
+    mostrarFotosBtn.classList.remove('btn-active');
+    semInspiracaoBtn.classList.remove('btn-active');
+    modoFoto = '';
+    resetAgenda();
+  }
+
+  if(!emailjsReady){
+    // Envio por e-mail ainda não configurado: orienta a cliente a confirmar pelo WhatsApp.
+    showMsg('success', 'Horário reservado! Abrimos o WhatsApp da Larissa pra você confirmar (se não abriu, toque no botão abaixo).');
+    wppConfirmBtn.style.display = 'inline-flex';
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Enviar pedido de agendamento';
+    resetFormState();
+    return;
+  }
+
+  submitBtn.textContent = 'Enviando...';
+
+  try{
+    await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, {
+      nome: data.nome,
+      data_horario: data.dataHorario,
+      tipo_penteado: data.tipoPenteado,
+      observacoes: data.observacoes || 'Nenhuma',
+      foto_referencia: data.fotoReferencia || 'Nenhuma'
+    });
+    showMsg('success', 'Pedido enviado! A Larissa vai receber por e-mail, e já abrimos o WhatsApp pra você confirmar também (se não abriu, toque no botão abaixo).');
+    wppConfirmBtn.style.display = 'inline-flex';
+    resetFormState();
+  }catch(err){
+    showMsg('error', 'Horário reservado, mas não consegui enviar o e-mail agora. O WhatsApp já abriu pra você confirmar direto:');
+    wppConfirmBtn.style.display = 'inline-flex';
+    resetFormState();
+  }finally{
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Enviar pedido de agendamento';
+  }
+});
+</script>
+
+</body>
+</html>
