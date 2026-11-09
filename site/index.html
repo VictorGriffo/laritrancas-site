@@ -89,7 +89,8 @@ section{padding:100px 0;}
 .section-head.center{margin-left:auto;margin-right:auto;text-align:center;}
 
 /* ---------- Process banner ---------- */
-.process-banner{padding:0;position:relative;}
+.process-banner{padding:0;position:relative;max-width:828px;margin:0 auto;overflow:hidden;}
+@media(min-width:900px){.process-banner{border-radius:24px;margin:24px auto;}}
 .process-banner img{width:100%;height:clamp(280px,38vw,460px);object-fit:cover;object-position:center 38%;}
 .process-caption{
   position:absolute;left:0;right:0;bottom:0;

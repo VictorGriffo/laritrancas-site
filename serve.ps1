@@ -1,8 +1,9 @@
-$root = Join-Path $PSScriptRoot "site"
+param($dir = "site", $port = 8080)
+$root = Join-Path $PSScriptRoot $dir
 $listener = New-Object System.Net.HttpListener
-$listener.Prefixes.Add("http://localhost:8080/")
+$listener.Prefixes.Add("http://localhost:$port/")
 $listener.Start()
-Write-Host "Serving $root on http://localhost:8080/"
+Write-Host "Serving $root on http://localhost:$port/"
 
 $mime = @{
   ".html"="text/html"; ".css"="text/css"; ".js"="application/javascript";
@@ -13,7 +14,7 @@ while ($listener.IsListening) {
   $ctx = $listener.GetContext()
   $req = $ctx.Request
   $path = $req.Url.LocalPath
-  if ($path -eq "/") { $path = "/larissa-lima-site.html" }
+  if ($path -eq "/") { $path = "/index.html" }
   $file = Join-Path $root ($path.TrimStart("/"))
   $res = $ctx.Response
   if (Test-Path $file -PathType Leaf) {

@@ -4,8 +4,20 @@
     {
       "name": "site",
       "runtimeExecutable": "powershell.exe",
-      "runtimeArgs": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "serve.ps1"],
+      "runtimeArgs": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "serve.ps1", "-dir", "site", "-port", "8080"],
       "port": 8080
+    },
+    {
+      "name": "site-v2",
+      "runtimeExecutable": "powershell.exe",
+      "runtimeArgs": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "serve.ps1", "-dir", "site-v2", "-port", "8081"],
+      "port": 8081
+    },
+    {
+      "name": "site-v3",
+      "runtimeExecutable": "powershell.exe",
+      "runtimeArgs": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "serve.ps1", "-dir", "site-v3", "-port", "8082"],
+      "port": 8082
     }
   ]
 }

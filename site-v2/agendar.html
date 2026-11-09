@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#33121f">
+<title>Agendar — Larissa Lima</title>
+<meta name="description" content="Agende seu horário com a Larissa Lima — tranças e penteados em Anchieta/ES.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+:root{
+  --paper:#fdf5f4;
+  --blush:#f7e4e5;
+  --blush-deep:#efd0d4;
+  --champagne:#cfa98c;
+  --champagne-soft:#ead8c9;
+  --rose:#c2607c;
+  --wine:#7a2445;
+  --wine-dark:#5e1a35;
+  --plum:#33121f;
+  --ink:#2b1a1e;
+  --muted:#6d4a54;
+  --line:#e6cfd0;
+  --max:880px;
+  --pad:clamp(20px,5vw,40px);
+  --serif:'Bodoni Moda','Didot','Times New Roman',serif;
+  --sans:'Jost',system-ui,sans-serif;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:400;font-size:1.04rem;line-height:1.65;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,.logo{font-family:var(--serif);font-weight:400;margin:0;letter-spacing:-0.01em;color:var(--ink);}
+p{margin:0;}
+a{color:inherit;text-decoration:none;}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad);}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px;}
+.hint{color:var(--muted);font-weight:300;font-size:.9rem;}
+
+/* cabeçalho */
+header{position:sticky;top:0;z-index:50;background:rgba(253,245,244,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);height:74px;max-width:1200px;margin:0 auto;}
+.logo{font-size:1.4rem;letter-spacing:.02em;}
+.back-link{font-size:.76rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--wine);border-bottom:1px solid var(--champagne);padding-bottom:3px;transition:border-color .2s;}
+.back-link:hover{border-color:var(--wine);}
+
+/* abertura */
+.intro{padding:clamp(48px,7vw,84px) 0 8px;text-align:center;}
+.intro .eyebrow{display:inline-flex;align-items:center;gap:14px;font-size:.78rem;font-weight:500;letter-spacing:.26em;text-transform:uppercase;color:var(--wine);margin-bottom:20px;}
+.intro .eyebrow::before,.intro .eyebrow::after{content:"";width:34px;height:1px;background:var(--champagne);}
+.intro h1{font-size:clamp(2.4rem,5.4vw,3.8rem);margin-bottom:18px;}
+.intro p{color:var(--muted);font-weight:300;font-size:1.1rem;max-width:34em;margin:0 auto;}
+
+/* etapas */
+.step{padding:clamp(28px,4vw,44px) 0;}
+.step-head{display:flex;align-items:center;gap:16px;margin-bottom:24px;}
+.step-num{font-family:var(--serif);font-style:italic;font-size:2.4rem;line-height:1;color:var(--champagne);min-width:34px;}
+.step-head h2{font-size:clamp(1.5rem,3vw,2rem);}
+.card{background:#fff;border:1px solid var(--champagne-soft);border-radius:2px;padding:clamp(22px,3.5vw,40px);box-shadow:0 30px 60px -48px rgba(51,18,31,.45);}
+
+/* agenda */
+.ag-layout{display:grid;grid-template-columns:1fr;gap:30px;}
+@media(min-width:640px){.ag-layout{grid-template-columns:minmax(0,330px) 1fr;align-items:start;}}
+.ag-col-label{display:block;font-size:.74rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--wine);margin-bottom:12px;}
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.cal-month-label{font-family:var(--serif);font-size:1.25rem;color:var(--ink);}
+.cal-nav{width:34px;height:34px;display:flex;align-items:center;justify-content:center;background:none;border:1px solid var(--champagne-soft);color:var(--wine);font-size:1.1rem;line-height:1;cursor:pointer;border-radius:2px;transition:border-color .2s,background .2s;}
+.cal-nav:hover:not(:disabled){border-color:var(--wine);background:var(--blush);}
+.cal-nav:disabled{opacity:.3;cursor:not-allowed;}
+.cal-weekdays{display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:8px;}
+.cal-weekdays span{text-align:center;font-size:.72rem;letter-spacing:.12em;color:var(--muted);font-weight:500;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.cal-empty{visibility:hidden;}
+.cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;background:var(--blush);border:1px solid transparent;color:var(--ink);font-family:inherit;font-size:.92rem;cursor:pointer;border-radius:2px;transition:border-color .2s,background .2s,color .2s;}
+.cal-day:hover:not(:disabled){border-color:var(--wine);}
+.cal-day:disabled{color:var(--muted);opacity:.35;cursor:not-allowed;background:transparent;}
+.cal-day.selected{background:var(--wine);color:#fff;}
+.ag-slots-box{background:var(--blush);border:1px solid var(--champagne-soft);border-radius:2px;padding:22px;min-height:100%;}
+.ag-slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:10px;}
+.ag-slots .hint{grid-column:1/-1;}
+.slot-btn{padding:12px 10px;background:#fff;border:1px solid var(--champagne-soft);color:var(--ink);font-family:inherit;font-size:.92rem;letter-spacing:.04em;cursor:pointer;border-radius:2px;transition:border-color .2s,background .2s,color .2s;}
+.slot-btn:hover:not(:disabled){border-color:var(--wine);}
+.slot-btn.selected{background:var(--wine);color:#fff;border-color:var(--wine);}
+.slot-btn.slot-taken{opacity:.4;text-decoration:line-through;cursor:not-allowed;}
+.ag-status{font-size:.88rem;margin-top:20px;color:var(--muted);}
+.ag-status.ag-error{color:#b3261e;}
+.ag-status.ag-demo{font-style:italic;}
+
+/* formulário */
+.field{margin-bottom:24px;}
+.field label{display:block;font-size:.74rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--wine);margin-bottom:10px;}
+.field .hint{letter-spacing:0;text-transform:none;font-weight:300;}
+.field input[type="text"],
+.field input[type="date"],
+.field input[type="time"],
+.field input[type="tel"],
+.field select,
+.field textarea{
+  width:100%;padding:14px 16px;border:1px solid var(--champagne-soft);border-radius:2px;
+  font-family:inherit;font-size:1rem;color:var(--ink);background:var(--paper);
+  transition:border-color .2s ease;
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--wine);outline:none;}
+.field input[readonly]{background:var(--blush);color:var(--muted);cursor:not-allowed;}
+.field textarea{resize:vertical;min-height:110px;}
+.upload-box{border:1px dashed var(--champagne);padding:20px;text-align:center;cursor:pointer;background:var(--paper);}
+.upload-box input{display:none;}
+.foto-picker{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px;}
+.foto-picker-item{position:relative;aspect-ratio:3/4;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:border-color .15s ease;border-radius:2px;}
+.foto-picker-item img{width:100%;height:100%;object-fit:cover;display:block;}
+.foto-picker-item.selected{border-color:var(--wine);}
+.foto-picker-item.selected::after{content:"✓";position:absolute;top:5px;right:5px;background:var(--wine);color:#fff;width:20px;height:20px;border-radius:50%;font-size:.72rem;display:flex;align-items:center;justify-content:center;}
+.upload-preview{margin-top:12px;display:none;}
+.upload-preview img{max-width:100%;max-height:180px;display:block;margin:0 auto;}
+.upload-remove{margin-top:8px;font-size:.84rem;color:var(--wine);text-decoration:underline;cursor:pointer;background:none;border:none;padding:0;font-family:inherit;}
+
+/* botões */
+.btn-primary{background:var(--wine);color:#fff;padding:0 34px;min-height:54px;font-weight:500;font-size:.84rem;letter-spacing:.18em;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:background .25s ease;border-radius:2px;border:1px solid var(--wine);cursor:pointer;width:100%;font-family:inherit;}
+.btn-primary:hover{background:var(--wine-dark);}
+.btn-primary:disabled{opacity:.6;cursor:wait;}
+.btn-secondary{border:1px solid var(--champagne);color:var(--ink);background:var(--paper);padding:14px 22px;font-weight:500;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;border-radius:2px;cursor:pointer;transition:background .2s ease,border-color .2s ease,color .2s;font-family:inherit;}
+.btn-secondary:hover{background:var(--blush);border-color:var(--wine);}
+.btn-secondary.btn-active{background:var(--wine);color:#fff;border-color:var(--wine);}
+.btn-wpp{background:var(--plum);color:#fff;padding:0 26px;min-height:52px;font-weight:500;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:2px;width:100%;margin-top:14px;}
+.btn-wpp:hover{background:#4a1b2e;}
+
+/* retorno */
+.form-msg{margin-top:18px;padding:16px 20px;font-size:.95rem;display:none;border-radius:2px;}
+.form-msg.success{display:block;background:#eef6ef;color:#27572d;border:1px solid #cfe3d2;}
+.form-msg.error{display:block;background:#fbeceb;color:#9c2018;border:1px solid #f0cfcc;}
+
+/* rodapé */
+footer{background:var(--plum);color:#d9bfc3;padding:44px 0;text-align:center;margin-top:30px;}
+footer p{color:#d9bfc3;font-size:.86rem;font-weight:300;letter-spacing:.04em;}
+
+@media (max-width:640px){
+  .card{padding:22px;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="index.html" class="logo">Larissa Lima</a>
+    <a href="index.html" class="back-link">&larr; Voltar ao site</a>
+  </div>
+</header>
+
+<section class="intro">
+  <div class="wrap">
+    <p class="eyebrow">Penteadista · Anchieta/ES</p>
+    <h1>Agende seu horário</h1>
+    <p>Escolha o melhor dia e horário e conte pra Larissa qual penteado você tem em mente.</p>
+  </div>
+</section>
+
+<section class="step">
+  <div class="wrap">
+    <div class="step-head">
+      <div class="step-num">1</div>
+      <h2>Escolha um horário</h2>
+    </div>
+    <div class="card">
+      <p class="hint" style="margin-bottom:20px;">Marque aqui sua preferência de data e horário que logo entro em contato com você para confirmar 😊</p>
+      <div class="ag-layout">
+        <div>
+          <label class="ag-col-label">Dia</label>
+          <div id="agDates">
+            <p class="hint">Carregando dias disponíveis...</p>
+          </div>
+          <input type="hidden" id="agDate">
+        </div>
+        <div>
+          <label class="ag-col-label">Horário</label>
+          <div class="ag-slots-box">
+            <div id="agSlots" class="ag-slots">
+              <p class="hint">Escolha um dia para ver os horários disponíveis.</p>
+            </div>
+          </div>
+          <input type="hidden" id="agSlotValue">
+        </div>
+      </div>
+      <p class="ag-status" id="agStatus"></p>
+    </div>
+  </div>
+</section>
+
+<section class="step">
+  <div class="wrap">
+    <div class="step-head">
+      <div class="step-num">2</div>
+      <h2>Conte como você imagina o penteado</h2>
+    </div>
+    <div class="card">
+      <form id="agendaForm">
+        <div class="field">
+          <label for="nome">Seu nome</label>
+          <input type="text" id="nome" name="nome" required>
+        </div>
+        <div class="field">
+          <label for="resumoDataHorario">Data e horário escolhidos na agenda acima</label>
+          <input type="text" id="resumoDataHorario" readonly placeholder="Escolha o dia e o horário no passo 1">
+        </div>
+        <div class="field">
+          <label for="tipoPenteado">Tipo de penteado</label>
+          <select id="tipoPenteado" name="tipoPenteado" required>
+            <option value="" disabled selected>Escolha uma opção</option>
+            <option value="Cacheados">Cacheados</option>
+            <option value="Coque">Coque</option>
+            <option value="Semi-preso">Semi-preso</option>
+            <option value="Rabo de Cavalo">Rabo de Cavalo</option>
+            <option value="Tranças">Tranças</option>
+            <option value="Tererê">Tererê</option>
+            <option value="Outras">Outras</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Foto de inspiração <span class="hint">(opcional)</span></label>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button type="button" class="btn-secondary" id="mostrarFotosBtn" style="flex:1;min-width:200px;">Quero escolher uma foto de inspiração 💌</button>
+            <button type="button" class="btn-secondary" id="semInspiracaoBtn" style="flex:1;min-width:160px;">Não tenho inspiração 🙅‍♀️</button>
+          </div>
+          <p class="hint" id="fotoHint" style="margin-top:10px;display:none;">Escolha o tipo de penteado acima para ver fotos da galeria.</p>
+          <div class="foto-picker" id="fotoPicker" style="margin-top:10px;"></div>
+          <p class="hint" style="margin-top:10px;">Se você já tem uma foto de referência própria (que não é da nossa galeria), pode mandar ela anexada direto na conversa do WhatsApp, depois de enviar o formulário.</p>
+        </div>
+        <div class="field">
+          <label for="observacoes">Observações <span class="hint">(opcional)</span></label>
+          <textarea id="observacoes" name="observacoes" placeholder="Conte detalhes, ocasião, referências, etc."></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary" id="submitBtn">Enviar pedido de agendamento</button>
+        <div class="form-msg" id="formMsg"></div>
+      </form>
+
+      <a class="btn-wpp" id="wppConfirmBtn" href="#" target="_blank" rel="noopener" style="display:none;">Avisar a Larissa no WhatsApp também</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>© <span id="year"></span> Larissa Lima — Tranças e Penteados.</p>
+  </div>
+</footer>
+
+<script src="js/booking-config.js"></script>
+<script src="js/booking-backend.js"></script>
+<script>
+const GALLERY_PHOTOS = {cacheados:[{c:"Penteado cacheado 1",t:"imgs/agenda-picker-1.jpeg"},{c:"Penteado cacheado 2",t:"imgs/agenda-picker-2.jpeg"},{c:"Penteado cacheado 3",t:"imgs/agenda-picker-3.jpeg"},{c:"Penteado cacheado 4",t:"imgs/agenda-picker-4.jpeg"},{c:"Penteado cacheado 5",t:"imgs/agenda-picker-5.jpeg"},{c:"Penteado cacheado 6",t:"imgs/agenda-picker-6.jpeg"},{c:"Penteado cacheado 7",t:"imgs/agenda-picker-7.jpeg"},{c:"Penteado cacheado 8",t:"imgs/agenda-picker-8.jpeg"},{c:"Penteado cacheado 9",t:"imgs/agenda-picker-9.jpeg"},{c:"Penteado cacheado 10",t:"imgs/agenda-picker-10.jpeg"}],
+coque:[{c:"Coque 1",t:"imgs/agenda-picker-11.jpeg"},{c:"Coque 2",t:"imgs/agenda-picker-12.jpeg"},{c:"Coque 3",t:"imgs/agenda-picker-13.jpeg"},{c:"Coque 4",t:"imgs/agenda-picker-14.jpeg"},{c:"Coque 5",t:"imgs/agenda-picker-15.jpeg"},{c:"Coque 6",t:"imgs/agenda-picker-16.jpeg"},{c:"Coque 7",t:"imgs/agenda-picker-17.jpeg"},{c:"Coque 8",t:"imgs/agenda-picker-18.jpeg"},{c:"Coque 9",t:"imgs/agenda-picker-19.jpeg"},{c:"Coque 10",t:"imgs/agenda-picker-20.jpeg"},{c:"Coque 11",t:"imgs/agenda-picker-21.jpeg"},{c:"Coque 12",t:"imgs/agenda-picker-22.jpeg"},{c:"Coque 13",t:"imgs/agenda-picker-23.jpeg"}],
+semipreso:[{c:"Semi-preso 1",t:"imgs/agenda-picker-24.jpeg"},{c:"Semi-preso 2",t:"imgs/agenda-picker-25.jpeg"},{c:"Semi-preso 3",t:"imgs/agenda-picker-26.jpeg"},{c:"Semi-preso 4",t:"imgs/agenda-picker-27.jpeg"},{c:"Semi-preso 5",t:"imgs/agenda-picker-28.jpeg"},{c:"Semi-preso 6",t:"imgs/agenda-picker-29.jpeg"},{c:"Semi-preso 7",t:"imgs/agenda-picker-30.jpeg"},{c:"Semi-preso 8",t:"imgs/agenda-picker-31.jpeg"},{c:"Semi-preso 9",t:"imgs/agenda-picker-32.jpeg"},{c:"Semi-preso 10",t:"imgs/agenda-picker-33.jpeg"},{c:"Semi-preso 11",t:"imgs/agenda-picker-34.jpeg"},{c:"Semi-preso 12",t:"imgs/agenda-picker-35.jpeg"},{c:"Semi-preso 13",t:"imgs/agenda-picker-36.jpeg"},{c:"Semi-preso 14",t:"imgs/agenda-picker-37.jpeg"},{c:"Semi-preso 15",t:"imgs/agenda-picker-38.jpeg"},{c:"Semi-preso 16",t:"imgs/agenda-picker-39.jpeg"},{c:"Semi-preso 17",t:"imgs/agenda-picker-40.jpeg"},{c:"Semi-preso 18",t:"imgs/agenda-picker-41.jpeg"},{c:"Semi-preso 19",t:"imgs/agenda-picker-42.jpeg"}],
+rabodecavalo:[{c:"Rabo de cavalo 1",t:"imgs/agenda-picker-43.jpeg"},{c:"Rabo de cavalo 2",t:"imgs/agenda-picker-44.jpeg"},{c:"Rabo de cavalo 3",t:"imgs/agenda-picker-45.jpeg"},{c:"Rabo de cavalo 4",t:"imgs/agenda-picker-46.jpeg"},{c:"Rabo de cavalo 5",t:"imgs/agenda-picker-47.jpeg"},{c:"Rabo de cavalo 6",t:"imgs/agenda-picker-48.jpeg"},{c:"Rabo de cavalo 7",t:"imgs/agenda-picker-49.jpeg"}],
+trancas:[{c:"Trança 1",t:"imgs/agenda-picker-50.jpeg"},{c:"Trança 2",t:"imgs/agenda-picker-51.jpeg"},{c:"Trança 3",t:"imgs/agenda-picker-52.jpeg"},{c:"Trança 4",t:"imgs/agenda-picker-53.jpeg"},{c:"Trança 5",t:"imgs/agenda-picker-54.jpeg"},{c:"Trança 6",t:"imgs/agenda-picker-55.jpeg"},{c:"Trança 7",t:"imgs/agenda-picker-56.jpeg"},{c:"Trança 8",t:"imgs/agenda-picker-57.jpeg"},{c:"Trança 9",t:"imgs/agenda-picker-58.jpeg"},{c:"Trança 10",t:"imgs/agenda-picker-59.jpeg"},{c:"Trança 11",t:"imgs/agenda-picker-60.jpeg"},{c:"Trança 12",t:"imgs/agenda-picker-61.jpeg"},{c:"Trança 13",t:"imgs/agenda-picker-62.jpeg"},{c:"Trança 14",t:"imgs/agenda-picker-63.jpeg"},{c:"Trança 15",t:"imgs/agenda-picker-64.jpeg"},{c:"Trança 16",t:"imgs/agenda-picker-65.jpeg"},{c:"Trança 17",t:"imgs/agenda-picker-66.jpeg"}],
+terere:[{c:"Tererê 1",t:"imgs/agenda-picker-67.jpeg"},{c:"Tererê 2",t:"imgs/agenda-picker-68.jpeg"},{c:"Tererê 3",t:"imgs/agenda-picker-69.jpeg"}]};
+document.getElementById('year').textContent = new Date().getFullYear();
+
+const WPP_NUMBER = '5528999876432';
+
+// ---------- Seletor de foto de inspiração (fotos da galeria do site) ----------
+const fotoPicker = document.getElementById('fotoPicker');
+const fotoHint = document.getElementById('fotoHint');
+let fotoEscolhida = ''; // legenda da foto escolhida, ex: "Coque 3"
+
+const CATEGORIA_PARA_CHAVE = {
+  'Cacheados': 'cacheados',
+  'Coque': 'coque',
+  'Semi-preso': 'semipreso',
+  'Rabo de Cavalo': 'rabodecavalo',
+  'Tranças': 'trancas',
+  'Tererê': 'terere'
+};
+
+function popularFotoPicker(categoriaLabel){
+  const chave = CATEGORIA_PARA_CHAVE[categoriaLabel];
+  const fotos = (typeof GALLERY_PHOTOS !== 'undefined' && chave) ? GALLERY_PHOTOS[chave] : null;
+  fotoEscolhida = '';
+  fotoPicker.innerHTML = '';
+  fotoHint.style.display = 'block';
+  if(!categoriaLabel){
+    fotoHint.textContent = 'Escolha o tipo de penteado acima primeiro.';
+    return;
+  }
+  if(!fotos || !fotos.length){
+    fotoHint.textContent = 'Nenhuma foto encontrada pra essa categoria ainda.';
+    return;
+  }
+  fotoHint.textContent = 'Toque numa foto se quiser usar como inspiração (opcional).';
+  fotos.forEach((foto) => {
+    const item = document.createElement('div');
+    item.className = 'foto-picker-item';
+    item.dataset.caption = foto.c;
+    const img = document.createElement('img');
+    img.src = foto.t;
+    img.alt = foto.c;
+    img.loading = 'lazy';
+    item.appendChild(img);
+    item.addEventListener('click', () => {
+      const jaSelecionada = item.classList.contains('selected');
+      fotoPicker.querySelectorAll('.foto-picker-item.selected').forEach(el => el.classList.remove('selected'));
+      if(jaSelecionada){
+        fotoEscolhida = '';
+      }else{
+        item.classList.add('selected');
+        fotoEscolhida = foto.c;
+      }
+    });
+    fotoPicker.appendChild(item);
+  });
+}
+
+const mostrarFotosBtn = document.getElementById('mostrarFotosBtn');
+const semInspiracaoBtn = document.getElementById('semInspiracaoBtn');
+let modoFoto = ''; // '' | 'escolhendo' | 'sem-inspiracao'
+
+mostrarFotosBtn.addEventListener('click', () => {
+  modoFoto = 'escolhendo';
+  mostrarFotosBtn.classList.add('btn-active');
+  semInspiracaoBtn.classList.remove('btn-active');
+  popularFotoPicker(document.getElementById('tipoPenteado').value);
+});
+
+semInspiracaoBtn.addEventListener('click', () => {
+  modoFoto = 'sem-inspiracao';
+  semInspiracaoBtn.classList.add('btn-active');
+  mostrarFotosBtn.classList.remove('btn-active');
+  fotoEscolhida = '';
+  fotoPicker.innerHTML = '';
+  fotoHint.style.display = 'block';
+  fotoHint.textContent = 'Sem problema, sem foto de inspiração dessa vez 🙂';
+});
+
+// Se a cliente trocar o tipo de penteado enquanto está no modo "escolhendo foto", atualiza a lista
+document.getElementById('tipoPenteado').addEventListener('change', (e) => {
+  if(modoFoto === 'escolhendo'){
+    popularFotoPicker(e.target.value);
+  }
+});
+
+
+// ---------- Envio do formulário ----------
+// Configuração do EmailJS: preencher quando as chaves estiverem disponíveis.
+// Deixe os três campos abaixo vazios ('') até termos Service ID, Template ID e Public Key.
+const EMAILJS_CONFIG = {
+  serviceId: 'service_ir1x7vc',
+  templateId: 'template_etxcugc',
+  publicKey: 'lc-IGoTRTPdSqvk0E'
+};
+if(typeof emailjs !== 'undefined' && EMAILJS_CONFIG.publicKey){
+  emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
+}
+
+const form = document.getElementById('agendaForm');
+const submitBtn = document.getElementById('submitBtn');
+const formMsg = document.getElementById('formMsg');
+const wppConfirmBtn = document.getElementById('wppConfirmBtn');
+
+// ---------- Agenda (calendário + horários reais, via Firebase ou modo demonstração) ----------
+const SCHEDULE = window.BOOKING_CONFIG.SCHEDULE;
+const buildTimeList = window.BOOKING_CONFIG.buildTimeList;
+const fetchTakenSlots = window.BOOKING_BACKEND.fetchTakenSlots;
+const reserveSlot = window.BOOKING_BACKEND.reserveSlot;
+const isDemoMode = window.BOOKING_BACKEND.isDemoMode;
+
+const datesWrap = document.getElementById('agDates');
+const dateInput = document.getElementById('agDate');
+const slotsWrap = document.getElementById('agSlots');
+const slotInput = document.getElementById('agSlotValue');
+const agStatus = document.getElementById('agStatus');
+const resumoDataHorario = document.getElementById('resumoDataHorario');
+let selectedDateLabel = '';
+
+function pad2(n){ return n < 10 ? '0' + n : '' + n; }
+function toDateStr(d){ return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()); }
+function weekdayLabel(d){ return ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'][d.getDay()]; }
+
+const MONTH_NAMES = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const WEEKDAY_SHORT = ['D','S','T','Q','Q','S','S'];
+
+const today = new Date();
+today.setHours(0,0,0,0);
+const maxDate = new Date(today);
+maxDate.setDate(maxDate.getDate() + SCHEDULE.daysAhead - 1);
+
+let viewYear = today.getFullYear();
+let viewMonth = today.getMonth();
+
+function isSelectable(d){
+  return d >= today && d <= maxDate && SCHEDULE.workDays.indexOf(d.getDay()) !== -1;
+}
+
+function clearAgStatus(){
+  agStatus.textContent = '';
+  agStatus.className = 'ag-status';
+}
+
+function renderCalendar(){
+  const firstOfMonth = new Date(viewYear, viewMonth, 1);
+  const startWeekday = firstOfMonth.getDay();
+  const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+
+  const todayMonthFirst = new Date(today.getFullYear(), today.getMonth(), 1);
+  const canGoPrev = firstOfMonth > todayMonthFirst;
+
+  const nextMonthFirst = new Date(viewYear, viewMonth + 1, 1);
+  const canGoNext = nextMonthFirst <= maxDate;
+
+  let html = '<div class="cal-header">'
+    + '<button type="button" class="cal-nav" data-dir="-1"' + (canGoPrev ? '' : ' disabled') + ' aria-label="Mês anterior">‹</button>'
+    + '<span class="cal-month-label">' + MONTH_NAMES[viewMonth] + ' ' + viewYear + '</span>'
+    + '<button type="button" class="cal-nav" data-dir="1"' + (canGoNext ? '' : ' disabled') + ' aria-label="Próximo mês">›</button>'
+    + '</div>';
+
+  html += '<div class="cal-weekdays">';
+  WEEKDAY_SHORT.forEach((w) => { html += '<span>' + w + '</span>'; });
+  html += '</div>';
+
+  html += '<div class="cal-grid">';
+  for(let i = 0; i < startWeekday; i++) html += '<span class="cal-empty"></span>';
+  for(let day = 1; day <= daysInMonth; day++){
+    const d = new Date(viewYear, viewMonth, day);
+    const dateStr = toDateStr(d);
+    const selectable = isSelectable(d);
+    const isSelected = dateInput.value === dateStr;
+    html += '<button type="button" class="cal-day' + (isSelected ? ' selected' : '') + '" data-date="' + dateStr + '" aria-pressed="' + isSelected + '"' + (selectable ? '' : ' disabled') + '>' + day + '</button>';
+  }
+  html += '</div>';
+
+  datesWrap.innerHTML = html;
+
+  datesWrap.querySelectorAll('.cal-nav:not([disabled])').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const dir = parseInt(btn.dataset.dir, 10);
+      viewMonth += dir;
+      if(viewMonth < 0){ viewMonth = 11; viewYear--; }
+      if(viewMonth > 11){ viewMonth = 0; viewYear++; }
+      renderCalendar();
+    });
+  });
+
+  datesWrap.querySelectorAll('.cal-day:not([disabled])').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const dateStr = btn.dataset.date;
+      const d = new Date(dateStr + 'T00:00:00');
+      dateInput.value = dateStr;
+      selectedDateLabel = weekdayLabel(d) + ' ' + pad2(d.getDate()) + '/' + pad2(d.getMonth() + 1);
+      slotInput.value = '';
+      resumoDataHorario.value = '';
+      clearAgStatus();
+      renderCalendar();
+      renderSlots(dateStr);
+    });
+  });
+}
+
+async function renderSlots(dateStr){
+  slotInput.value = '';
+  resumoDataHorario.value = '';
+  if(!dateStr){
+    slotsWrap.innerHTML = '';
+    return;
+  }
+  slotsWrap.innerHTML = '<p class="hint">Carregando horários...</p>';
+
+  const d = new Date(dateStr + 'T00:00:00');
+  const times = buildTimeList(d.getDay());
+  if(!times.length){
+    slotsWrap.innerHTML = '<p class="hint">Sem atendimento nesse dia. Escolha outro.</p>';
+    return;
+  }
+
+  let taken = [];
+  try{
+    taken = await fetchTakenSlots(dateStr);
+  }catch(e){
+    slotsWrap.innerHTML = '<p class="hint">Não foi possível carregar os horários agora.</p>';
+    return;
+  }
+
+  if(taken.indexOf('ALLDAY') !== -1){
+    slotsWrap.innerHTML = '<p class="hint">Sem atendimento nesse dia. Escolha outro.</p>';
+    return;
+  }
+
+  const now = new Date();
+  const isToday = dateStr === toDateStr(now);
+
+  slotsWrap.innerHTML = '';
+  times.forEach((time) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'slot-btn';
+    btn.textContent = time;
+    btn.setAttribute('aria-pressed', 'false');
+
+    let isPast = false;
+    if(isToday){
+      const hourNum = parseInt(time.split(':')[0], 10);
+      if(hourNum <= now.getHours()) isPast = true;
+    }
+
+    if(taken.indexOf(time) !== -1 || isPast){
+      btn.disabled = true;
+      btn.classList.add('slot-taken');
+    }else{
+      btn.addEventListener('click', () => {
+        slotsWrap.querySelectorAll('.slot-btn').forEach((b) => {
+          b.classList.remove('selected');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        btn.classList.add('selected');
+        btn.setAttribute('aria-pressed', 'true');
+        slotInput.value = time;
+        resumoDataHorario.value = selectedDateLabel + ' às ' + time;
+        clearAgStatus();
+      });
+    }
+    slotsWrap.appendChild(btn);
+  });
+}
+
+renderCalendar();
+
+if(isDemoMode()){
+  agStatus.textContent = 'Agenda em modo de demonstração: os horários reservados aqui ficam salvos só neste navegador, até o Firebase ser configurado.';
+  agStatus.className = 'ag-status ag-demo';
+}
+
+function buildWppText(data){
+  let text = `Olá! Gostaria de agendar um horário 😊\nData e horário: ${data.dataHorario}\nNome: ${data.nome}\nTipo de penteado: ${data.tipoPenteado}`;
+  if(data.observacoes){
+    text += `\nObservações: ${data.observacoes}`;
+  }
+  if(data.fotoReferencia){
+    text += `\nFoto de inspiração: ${data.fotoReferencia}`;
+  }
+  return text;
+}
+
+function showMsg(type, text){
+  formMsg.className = 'form-msg ' + type;
+  formMsg.textContent = text;
+}
+
+function resetAgenda(){
+  dateInput.value = '';
+  slotInput.value = '';
+  selectedDateLabel = '';
+  resumoDataHorario.value = '';
+  renderCalendar();
+  slotsWrap.innerHTML = '<p class="hint">Escolha um dia para ver os horários disponíveis.</p>';
+  clearAgStatus();
+  if(isDemoMode()){
+    agStatus.textContent = 'Agenda em modo de demonstração: os horários reservados aqui ficam salvos só neste navegador, até o Firebase ser configurado.';
+    agStatus.className = 'ag-status ag-demo';
+  }
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const dateStr = dateInput.value;
+  const time = slotInput.value;
+
+  if(!dateStr || !time){
+    agStatus.textContent = 'Escolha um dia e um horário disponível no passo 1 antes de enviar.';
+    agStatus.className = 'ag-status ag-error';
+    window.scrollTo({ top: datesWrap.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth' });
+    return;
+  }
+
+  const data = {
+    nome: document.getElementById('nome').value.trim(),
+    dataHorario: selectedDateLabel + ' às ' + time,
+    tipoPenteado: document.getElementById('tipoPenteado').value,
+    observacoes: document.getElementById('observacoes').value.trim(),
+    fotoReferencia: fotoEscolhida
+  };
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Reservando horário...';
+
+  const reserva = await reserveSlot(dateStr, time, {
+    nome: data.nome,
+    tipoPenteado: data.tipoPenteado,
+    observacoes: data.observacoes,
+    fotoReferencia: data.fotoReferencia
+  });
+
+  if(!reserva.ok){
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Enviar pedido de agendamento';
+    if(reserva.reason === 'taken'){
+      showMsg('error', 'Esse horário acabou de ser reservado por outra pessoa. Escolha outro, por favor.');
+      renderSlots(dateStr);
+    }else{
+      showMsg('error', 'Não consegui reservar o horário agora. Tenta de novo ou fala direto pelo WhatsApp:');
+      wppConfirmBtn.style.display = 'inline-flex';
+    }
+    return;
+  }
+
+  const wppText = buildWppText(data);
+  const wppUrl = `https://wa.me/${WPP_NUMBER}?text=${encodeURIComponent(wppText)}`;
+  wppConfirmBtn.href = wppUrl;
+
+  // Abre o WhatsApp clicando de verdade no link (igual o botão "Usar como inspiração" do site principal),
+  // pra funcionar de forma confiável mesmo em navegadores que bloqueiam abertura de aba via script.
+  wppConfirmBtn.click();
+
+  const emailjsReady = EMAILJS_CONFIG.serviceId && EMAILJS_CONFIG.templateId && EMAILJS_CONFIG.publicKey;
+
+  function resetFormState(){
+    form.reset();
+    fotoPicker.innerHTML = '';
+    fotoEscolhida = '';
+    fotoHint.style.display = 'none';
+    mostrarFotosBtn.classList.remove('btn-active');
+    semInspiracaoBtn.classList.remove('btn-active');
+    modoFoto = '';
+    resetAgenda();
+  }
+
+  if(!emailjsReady){
+    // Envio por e-mail ainda não configurado: orienta a cliente a confirmar pelo WhatsApp.
+    showMsg('success', 'Horário reservado! Abrimos o WhatsApp da Larissa pra você confirmar (se não abriu, toque no botão abaixo).');
+    wppConfirmBtn.style.display = 'inline-flex';
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Enviar pedido de agendamento';
+    resetFormState();
+    return;
+  }
+
+  submitBtn.textContent = 'Enviando...';
+
+  try{
+    await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, {
+      nome: data.nome,
+      data_horario: data.dataHorario,
+      tipo_penteado: data.tipoPenteado,
+      observacoes: data.observacoes || 'Nenhuma',
+      foto_referencia: data.fotoReferencia || 'Nenhuma'
+    });
+    showMsg('success', 'Pedido enviado! A Larissa vai receber por e-mail, e já abrimos o WhatsApp pra você confirmar também (se não abriu, toque no botão abaixo).');
+    wppConfirmBtn.style.display = 'inline-flex';
+    resetFormState();
+  }catch(err){
+    showMsg('error', 'Horário reservado, mas não consegui enviar o e-mail agora. O WhatsApp já abriu pra você confirmar direto:');
+    wppConfirmBtn.style.display = 'inline-flex';
+    resetFormState();
+  }finally{
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Enviar pedido de agendamento';
+  }
+});
+</script>
+
+</body>
+</html>
